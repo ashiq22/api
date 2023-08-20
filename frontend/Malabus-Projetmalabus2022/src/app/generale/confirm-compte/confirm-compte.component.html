@@ -1,0 +1,27 @@
+<head>
+</head>
+<body>
+    <!--Main Start-->
+    <div class="main">
+        <div class="lefttext">
+            <div class="textwrap">
+                <h1>
+                    Bienvenue à Malabus
+                </h1>
+                <div *ngIf = "isActivat; else verif" >
+                    <p>
+                        Nous avons bien verifié votre adresse e-mail
+                    </p>
+                </div>
+                <ng-template #verif>
+                    <p style="color: black;">Votre compte n'est pas activé , merci de verifier votre e-mail</p>
+                </ng-template>
+                <button routerLink="/"> Aller à la page d'acceuil</button>
+            </div>
+        </div>
+  
+        <div class="rightimage">
+            <img src="../../../assets/images/2728203.png">
+        </div>
+    </div>
+  

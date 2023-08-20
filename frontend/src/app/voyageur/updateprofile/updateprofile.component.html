@@ -1,0 +1,97 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent" style="margin-top: -80px">
+    <!-- Tabs Titles -->
+    <div class="fadeIn first mt-4">
+      <img
+        class="rounded-circle z-depth-2"
+        style="width: 150px"
+        alt="100x100"
+        src="../../../assets/images/chayma.jpg"
+        data-holder-rendered="true"
+      />
+    </div>
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <h3>Modifier mon profil</h3>
+    </div>
+    <form name="form" #f="ngForm" (ngSubmit)="updateuser(f)">
+      <input
+        type="text"
+        name="fname"
+        id="fname"
+        [(ngModel)]="form.fname"
+        class="form-control input-login"
+        placeholder="Nom"
+        required="required"
+        data-error="Saisir nom"
+        required
+      />
+      <input
+        type="text"
+        class="form-control input-login"
+        name="lname"
+        placeholder="Prénom"
+        [(ngModel)]="form.lname"
+      />
+      <input type="datetime" class="form-control input-login" name="birthday"
+      [(ngModel)]="form.birthday"
+      name="birthday"
+      value="form.birthday" 
+      
+      />
+      <input
+        type="number"
+        class="form-control input-login"
+        [(ngModel)]="form.phoneNum"
+        name="phoneNum"
+        value="form.phoneNum"
+        placeholder="N° de téléphone"
+      />
+      <select
+        style="margin-left: 44px; width: 369px"
+        class="form-select"
+        aria-label="Default select example"
+        [(ngModel)]="form.civility"
+        name="civility"
+        value="form.civility"
+      >
+        <option value="Mlle">Mlle</option>
+        <option value="Madame">Madame</option>
+        <option value="Monsieur">Monsieur</option>
+      </select>
+      <br />
+      <select
+        style="margin-left: 44px; width: 369px"
+        class="form-select"
+        aria-label="Default select example"
+        [(ngModel)]="form.job"
+        name="job"
+        value="form.job"
+      >
+        <option value="étudinat">étudinat</option>
+        <option value="Employé">Employé</option>
+        <option value="Chômeur">Chômeur</option>
+        <option value="Retraité">Retraité</option>
+      </select>
+      <br />
+
+      <input
+        type="text"
+        class="form-control input-login"
+        name="address"
+        placeholder="Address"
+        [(ngModel)]="form.address"
+      />
+
+      <button
+      type="submit"
+        style="margin-left: 0%"
+        class="btn btn-primary btn-block mb-4 btn-login"
+      >
+        Modifier
+      </button>
+    </form>
+    <!-- Remind Passowrd -->
+    <div id="formFooter"></div>
+  </div>
+</div>

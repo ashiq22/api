@@ -1,0 +1,67 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first mt-4">
+      <a href="">
+        <img src="../../assets/images/malabus.png" alt="" />
+      </a>
+    </div>
+    <div class="fadeIn first">
+      <h3>Retrouvez votre compte</h3>
+    </div>
+    <div class="fadeIn first">
+      <p class="p">
+        Veuillez entrer votre adresse e-mail pour rechercher votre compte.
+      </p>
+    </div>
+
+    <!-- Login Form -->
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && forgetPass()"
+      ngForm
+      #f="ngForm"
+    >
+      <input
+        type="email"
+        class="form-control input-login"
+        name="email"
+        [(ngModel)]="form.email"
+        #email="ngModel"
+        placeholder="Adresse e-mail"
+      />
+      <button
+      style="margin-left: 0%"
+      class="btn btn-primary btn-block mb-4 btn-annuler"
+      routerLink=""
+    >
+      Annuler
+    </button>
+      <button
+        style="margin-left: 5%"
+        class="btn btn-primary btn-block mb-4 btn-login"
+      >
+        Rechercher
+      </button>
+      
+      <div
+        *ngIf="showMsg"
+        class="alert alert-success"
+        role="alert"
+        style="width: 308px; margin-left: 68px"
+      >
+        Une-mail de réinitialisation de mot de passe a été envoyé à l'adresse
+        e-mail enregistrée pour votre compte.
+      </div>
+      <div
+        *ngIf="errorMessage.show"
+        class="alert alert-danger"
+        role="alert"
+        style="width: 308px; margin-left: 68px"
+      >
+        {{ errorMessage.msg }}
+      </div>
+    </form>
+    <!-- Remind Passowrd -->
+    <div id="formFooter"></div>
+  </div>
+</div>

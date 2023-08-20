@@ -1,0 +1,2104 @@
+<!--home-->
+<div #home>
+  <div id="home" class="page1" *ngIf="page1" style="overflow: hidden">
+    <div class="container">
+      <div class="d-flex flex-column my-flex-container-column">
+        <div class="p-2 my-flex-item">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a href=""
+                ><img
+                  width="72"
+                  height="41"
+                  src="../../assets/images/logo.png"
+                  class="imglogo"
+              /></a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a (click)="scrolTo(home)" style="color: white">Accueil</a>
+                  </li>
+                  <li class="nav-item">
+                    <a (click)="scrolTo(about)" style="color: white"
+                      >Que faison-nous?</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a (click)="scrolTo(serviceSection)" style="color: white"
+                      >Caractéristique</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a (click)="scrolTo(TechnoGm)" style="color: white"
+                      >TechnoGm</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a (click)="scrolTo(Partenaires)" style="color: white"
+                      >Partenaires</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a (click)="scrolTo(contact)" style="color: white"
+                      >Contact</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a target="_blank" href="https://www.facebook.com/malabustn"
+                      ><i class="fa fa-facebook"></i
+                    ></a>
+                    <a
+                      target="_blank"
+                      href="https://www.instagram.com/malabustn/"
+                      ><i class="fa fa-instagram"></i
+                    ></a>
+                    <a target="_blank" href=""
+                      ><i class="fa fa-linkedin"></i
+                    ></a>
+                  </li>
+                </ul>
+
+                <div class="d-flex">
+                  <div ngbDropdown class="d-inline-block">
+                    <button
+                      class="btn btn-outline d-flex align-items-center justify-content-center"
+                      ngbDropdownToggle
+                    >
+                      <img
+                        alt="Avatar"
+                        width="30"
+                        height="30"
+                        style="border-radius: 50%; margin-right: 5px"
+                        src="{{ form.imagePath }}"
+                        onerror="this.src='assets/images/149071.png'"
+                      />
+
+                      {{ form.fname }}
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button (click)="open(mymodal)" ngbDropdownItem>
+                        <i class="bi bi-person" style="color: green"></i> Profil
+                      </button>
+                      <!-- 
+   <button ngbDropdownItem (click)="openForum(forum)">
+                      Forum
+                    </button>
+                      -->
+
+                      <button (click)="logout()" ngbDropdownItem>
+                        <i class="bi bi-power" style="color: green"></i>
+                        Déconnexion
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div
+            style="position: relative"
+            class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+          >
+            <h3 class="h3-v div75">Sélectionner L’itinéraire</h3>
+            <h3 class="h3-v2 div75">Trouvez Votre Destination</h3>
+            <div class="DatesRes">
+              <form
+                [formGroup]="searchTicket"
+                (ngSubmit)="searchTicketenligne()"
+              >
+                <div class="input-group mb-3">
+                  <input
+                    (keyup)="search($event)"
+                    type="text"
+                    placeholder="De"
+                    class="form-control"
+                    matInput
+                    formControlName="arretDepart"
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option
+                      *ngFor="let item of dataArret"
+                      [value]="item.nom_arret"
+                    >
+                      {{ item.nom_arret }}
+                    </mat-option>
+                  </mat-autocomplete>
+
+                  <span class="input-group-text">
+                    <div class="mytransport">
+                      <i class="fa fa-long-arrow-down" aria-hidden="true"></i>
+                      <i class="fa fa-long-arrow-up" aria-hidden="true"></i>
+                    </div>
+                  </span>
+                  <input
+                    (keyup)="search($event)"
+                    type="text"
+                    placeholder="Vers"
+                    aria-label="Number"
+                    class="form-control"
+                    matInput
+                    formControlName="arretArrive"
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let item of dataArret">
+                      {{ item.nom_arret }}
+                    </mat-option>
+                  </mat-autocomplete>
+
+                  <span
+                    class="input-group-text"
+                    style="background: transparent; border-color: transparent"
+                  >
+                    <i
+                      class="fa fa-clock-o"
+                      aria-hidden="true"
+                      style="color: white"
+                    ></i>
+                  </span>
+                  <input
+                    type="date"
+                    style="border-radius: 0px"
+                    class="form-control"
+                    formControlName="dateVoyage"
+                  />
+
+                  <span
+                    class="input-group-text"
+                    style="background: transparent; border-color: transparent"
+                  >
+                  </span>
+                  <div class="col-md-2">
+                    <button
+                      type="submit"
+                      (click)="showimg()"
+                      class="read_btstore"
+                      style="background-color: #00e1b5"
+                    >
+                      Rechercher
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="shadow-lg p-1 mb-5 bg-white rounded tab"
+                  style="
+                    max-width: auto;
+                    position: absolute;
+                    font-size: larger;
+                    text-align-last: justify;
+                  "
+                  *ngFor="let item of dataRecherche"
+                >
+                  &nbsp; {{ item.heurDepart }} &nbsp;
+                  {{ item.arretDepart }} &nbsp;
+                  <img src="../../assets/images/icon.PNG" alt="" /> &nbsp;
+                  {{ item.heurArrive }} &nbsp; {{ item.arretArrive }} &nbsp;
+                  <img
+                  
+                    src="{{ item.imagePath }}"
+                    style="width: 4%"
+                    alt=""
+                    alt=""
+                  />
+                  <b  style="color:  #2a9965" *ngIf="!item.imagePath">
+                    {{item.nameagency}}
+
+                  </b>
+                  &nbsp; <b>Ligne:</b> &nbsp;{{ item.nomLigne }} &nbsp;
+                  {{ item.prix }}DT &nbsp; Ticket disponible:
+                  {{ item.Nbrtickets }} &nbsp; &nbsp;
+                  <button
+                    *ngIf="item.Nbrtickets == 0"
+                    disabled
+                    class="btn btn-primary"
+                    style="background: #0f5132; border-color: #0f5132"
+                  >
+                    Réserver
+                  </button>
+                  <button
+                    *ngIf="item.Nbrtickets >= 1"
+                  
+
+                    class="btn btn-primary"
+                    style="background: #0f5132; border-color: #0f5132"
+                  >
+                    Réserver
+                  </button>
+                </div>
+                <div *ngIf="errorMessage.show">
+                  <p
+                    style="
+                      font-size: 16px;
+                      text-align: center;
+                      -webkit-text-stroke-width: thick;
+                      color: #02403b;
+                    "
+                  >
+                    Trajet indisponible
+                  </p>
+                </div>
+              </form>
+              <div class="row">
+                <div
+                  class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+                >
+                  <p class="titrex-p div75" *ngIf="textlang">
+                    Téléchargez L’application Pour Reserver Et Payer En Ligne
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="Mydiv75">
+          <div class="row">
+            <div class="col-lg-3 bgH" *ngIf="imagelan"></div>
+            <div class="col-md-9 MyText" *ngIf="textlang">
+              <p class="pMyText">
+                <span class="h2MyText">
+                  <span class="FontMallaBus">MalaBus</span>
+                  l’expérience d’un déplacement interurbain rapide, pratique et
+                  sûr.</span
+                >
+              </p>
+              <span class="pMyText">
+                Le voyageur peut réserver et payer son ticket de transport
+                directement via son smartphone et avoir une idée sur les
+                disponibilités, les horaires et le prix de chaque voyage, ainsi
+                que l’itinéraire à suivre pour arriver à sa destination en
+                utilisant Google Maps.</span
+              >
+              <br />
+              <br />
+  
+
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  <button type="button" class="read_btstore">
+                    <img src="/assets/images/AppStore.png" class="store1" />
+
+                    Obtenir sur AppStore
+                  </button>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="read_btstore">
+                    <img src="/assets/images/PlayStore.png" class="store1" />
+                    Obtenir sur PlayStore
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--info-->
+<div #about>
+  <div class="page2 my-5" id="about" class="container" *ngIf="page2">
+    <div *ngIf="page2">
+      <h2 class="choose_text">Que faison-nous?</h2>
+      <p class="lorem_text">Comment cette application peut vous aider</p>
+
+      <div id="test1" class="container">
+        <div class="row">
+          <div class="col-sm-4 mb-4">
+            <div class="power">
+              <div class="icon">
+                <img src="/assets/images/Recherche.png" class="imgapp" />
+              </div>
+              <h2 class="totaly_text">Recherche</h2>
+              <p class="making">
+                Pas besoin de chercher un point de vente et perdre votre temps,
+                trouvez votre destination et l’horaire qui vous convient
+                facilement via votre smartphone.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4 mb-4">
+            <div class="power">
+              <div class="icon">
+                <img src="/assets/images/Paiement.png" class="imgapp" />
+              </div>
+              <h2 class="totaly_text">Paiement sécurisé</h2>
+              <p class="making">
+                Pas besoin de se déplacer pour acheter votre ticket, payez en
+                toute sécurité par votre carte bancaire ou avec les services
+                MobiNet.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4 mb-4">
+            <div class="power">
+              <div class="icon">
+                <img src="/assets/images/Suivi.png" class="imgapp" />
+              </div>
+              <h2 class="totaly_text">Suivi en temps réel</h2>
+              <p class="making">
+                MalaBus permet aux voyageurs de suivre en temps réel le trajet
+                de leur bus, de le localiser et de prévoir son arrivée à l’arrêt
+                de leur choix en toute tranquillité.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--services-->
+<section id="serviceSection" #serviceSection class="page3">
+  <div class="container" *ngIf="page3">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <h2 class="choose_text1">Pourquoi Malabus ?</h2>
+        <p class="lorem_text6">Caractéristique de l’application</p>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <img src="assets/images/Groupe 35715.png" class="imggg" />
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <table class="center">
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35716.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">Facile à utiliser</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35717.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">
+                  Vos données sont toujours en sécurité
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35718.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">
+                  Une application conçue pour tout le monde (Andorid/IOS)
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35719.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">Assistance 24/7</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--technogm-->
+<div class="page4" id="TechnoGm" #TechnoGm>
+  <div id="TechnoGm" class="container" *ngIf="page4">
+    <div>
+      <h2 class="choose_text2">Qui l’a créé?</h2>
+      <p class="lorem_text">Les créateurs : C’est TechnoGM</p>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="web_text5">
+          TechnoGM est une société SARL purement Tunisienne, notre entreprise se
+          place dans le secteur de l’informatique, la technique et
+          l’innovation.Nous créons des applications, des sites web, et faisons
+          la numérisation des entreprises afin de les aider à s’améliorer. La
+          technologie se développe tous les jours pour pouvoir suivre
+          l’avancement, il faut être innovant, flexible et ouvert aux
+          possibilités. Nous offrons aux entreprises la possibilité de
+          s’améliorer dans plusieurs domaines tels que la communication interne,
+          leur système d’archives, leurs relations avec leurs clientèles et plus
+          encore.
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <img src="../assets/images/technogm.png" class="imgtechnogm" />
+      </div>
+      <div class="col-sm-4">
+        <a>
+          <div class="btn_main2">
+            <button type="button" (click)="scrolTo6(cntc)" class="read_btp">En savoir plus</button>
+          </div>
+        </a>
+      </div>
+      <p style="color: black; margin-top: -109px" *ngIf="ensavoir">ok</p>
+    </div>
+  </div>
+</div>
+
+<!--lelouch-->
+<div *ngIf="iframe">
+  <iframe style="margin-top: 19px ;" src="https://drive.google.com/file/d/1Zge6GsNxQxLpQfD7SI66u4XxmugH-wSH/preview" width="100%" height="480" allow="autoplay"></iframe>
+
+</div>
+
+<!--partenaires-->
+<div #Partenaires>
+  <div class="container" id="Partenaires" style="padding-top: 2%" *ngIf="page6">
+    <div class="col-sm-12">
+      <p class="lorem_text">Ils Nous Font Confiance</p>
+    </div>
+
+    <ngb-carousel *ngIf="images">
+      <ng-template ngbSlide *ngFor="let image of images">
+        <div class="slide">
+          <img class="imgcursol" [src]="image" />
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</div>
+
+<div #confd>
+  <div class="container" class="condetion" id="conf" *ngIf="showconf">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a (click)="scrolTo(home)" style="color: white">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(about)" style="color: white"
+                    >Que faison-nous?</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(serviceSection)" style="color: white"
+                    >Caractéristique</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(TechnoGm)" style="color: white"
+                    >TechnoGm</a
+                  >
+                </li>
+
+                <li class="nav-item">
+                  <a (click)="scrolTo(Partenaires)" style="color: white"
+                    >Partenaires</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(contact)" style="color: white">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div ngbDropdown class="d-inline-block">
+                  <button
+                    class="btn btn-outline d-flex align-items-center justify-content-center"
+                    ngbDropdownToggle
+                  >
+                    <img
+                      alt="Avatar"
+                      width="30"
+                      height="30"
+                      style="border-radius: 50%; margin-right: 5px"
+                      src="{{ form.imagePath }}"
+                      onerror="this.src='assets/images/149071.png'"
+                    />
+
+                    {{ form.fname }}
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button (click)="open(mymodal)" ngbDropdownItem>
+                      <i class="bi bi-person" style="color: green"></i> Profil
+                    </button>
+                    <!-- 
+ <button ngbDropdownItem (click)="openForum(forum)">
+                    Forum
+                  </button>
+                    -->
+
+                    <button (click)="logout()" ngbDropdownItem>
+                      <i class="bi bi-power" style="color: green"></i>
+                      Déconnexion
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Confidentialité Des Données</b>
+          </h3>
+          <p style="color: #585e68; text-align: center">
+            Nous, <b>Techno GM</b> souhaitons vous informer ici sur la
+            protection des données chez <b>MalaBus</b>.
+          </p>
+          <p style="color: #585e68; text-align: center">
+            Les réglementations relatives à la protection des données pour la
+            protection de la personne concernée par le traitement des données
+            (nous vous désignons
+          </p>
+          <p style="color: #585e68; text-align: center">
+            désignons ci-après comme la a personne concernée, ainsi que le «
+            client », l’« utilisateur », « vous » ou la « personne concernée »)
+            proviennent en
+          </p>
+
+          <p style="color: #585e68; text-align: center">
+            particulier du Règlement général sur la protection des données.
+          </p>
+          <p style="color: #585e68; text-align: center">
+            Dans la mesure où nous décidons des finalités et des moyens du
+            traitement des données, seul ou conjointement avec d’autres, cela
+            inclut
+          </p>
+          <p style="color: #585e68; text-align: center">
+            principalement l’obligation de vous informer de manière transparente
+            sur le type, la portée, la finalité, la durée et la base juridique
+            du traitement .
+          </p>
+          <p style="color: #585e68; text-align: center">
+            L’objectif de la présente politique, est de vous informer sur la
+            manière dont nous traitons vos données à caractère personnel.
+          </p>
+          <p style="color: #585e68; text-align: center">
+            Notre plitique de confidentialité est de structure modulaire. Elle
+            se compose d’une partie contenant des informations générales sur
+            tous les
+          </p>
+          <p style="color: #585e68; text-align: center">
+            traitements de données à caractère personnel et les situations de
+            traitement qui entrent en vigueur chaque fois que notre site Web est
+            consulté et
+          </p>
+          <p style="color: #585e68; text-align: center">
+            d’une partie spécifique, dont le contenu fait référence uniquement à
+            la situation de traitement spécifiée avec le nom de l’offre ou du
+            produit
+          </p>
+          <p style="color: #585e68; text-align: center">
+            respectif, en particulier lorsque vous visitez nos sites Web.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #mentionL>
+  <div class="container" class="condetion" id="mention" *ngIf="showmention">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a (click)="scrolTo(home)" style="color: white">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(about)" style="color: white"
+                    >Que faison-nous?</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(serviceSection)" style="color: white"
+                    >Caractéristique</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(TechnoGm)" style="color: white"
+                    >TechnoGm</a
+                  >
+                </li>
+
+                <li class="nav-item">
+                  <a (click)="scrolTo(Partenaires)" style="color: white"
+                    >Partenaires</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(contact)" style="color: white">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div ngbDropdown class="d-inline-block">
+                  <button
+                    class="btn btn-outline d-flex align-items-center justify-content-center"
+                    ngbDropdownToggle
+                  >
+                    <img
+                      alt="Avatar"
+                      width="30"
+                      height="30"
+                      style="border-radius: 50%; margin-right: 5px"
+                      src="{{ form.imagePath }}"
+                      onerror="this.src='assets/images/149071.png'"
+                    />
+
+                    {{ form.fname }}
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button (click)="open(mymodal)" ngbDropdownItem>
+                      <i class="bi bi-person" style="color: green"></i> Profil
+                    </button>
+                    <!-- 
+ <button ngbDropdownItem (click)="openForum(forum)">
+                    Forum
+                  </button>
+                    -->
+
+                    <button (click)="logout()" ngbDropdownItem>
+                      <i class="bi bi-power" style="color: green"></i>
+                      Déconnexion
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Mentions Légales</b>
+          </h3>
+          <p style="color: #585e68">
+            <b>Éditeur </b>
+          </p>
+          <p style="color: #585e68">Techno GM</p>
+          <p style="color: #585e68">
+            <b>Contact</b>
+          </p>
+
+          <p style="color: #585e68">
+            Adresse: IMM5 APP2 Résidence Sidi Hassine , Tunis 2052, Tunisie
+          </p>
+          <p style="color: #585e68">Tél: + (216) 50 88 01 88*</p>
+          <p style="color: #585e68">E-Mail: technogm.tn@gmail.com</p>
+          <p style="color: #585e68; font-size: 15px">
+            *Veuillez noter que le prix des appels depuis les lignes fixes et
+            depuis les mobiles dépend des tarifs des prestataires individuels.
+          </p>
+          <p style="color: #585e68">
+            <br />
+            <b>Responsabilité pour les contenus </b>
+          </p>
+          <p style="color: #585e68">
+            Les contenus de nos pages ont été créés avec le plus grand soin.
+            Nous n’offrons toutefois aucune garantie quant à l’exactitude,
+            l’exhaustivité ou l’actualité des contenus. En tant que fournisseur
+            de service, nous sommes responsables de nos propres contenus sur ces
+            pages selon les lois <br />
+            générales. Toutefois en tant que fournisseur de service, nous ne
+            sommes pas tenus à surveiller les informations tierces transmises ou
+            enregistrées <br />
+            qui indiquent une activité illicite, ni à étudier les circonstances.
+            Ceci n’affecte pas les obligations d’éliminer ou de bloquer
+            l’utilisation <br />
+            selon les lois générales. Toutefois, une responsabilité à cet égard
+            n’est possible qu’à partir de la date de la prise de connaissance de
+            la violation du <br />
+            droit. Si nous apprenons l’existence de telles violations du droit,
+            nous supprimerons immédiatement ces contenus.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--condition générale de vente-->
+<div #conditionGeneral>
+  <div
+    class="container"
+    class="condetionconf"
+    id="conditionG"
+    style="background-size: contain"
+    *ngIf="condiong"
+  >
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a (click)="scrolTo(home)" style="color: white">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(about)" style="color: white"
+                    >Que faison-nous?</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(serviceSection)" style="color: white"
+                    >Caractéristique</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(TechnoGm)" style="color: white"
+                    >TechnoGm</a
+                  >
+                </li>
+
+                <li class="nav-item">
+                  <a (click)="scrolTo(Partenaires)" style="color: white"
+                    >Partenaires</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(contact)" style="color: white">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div ngbDropdown class="d-inline-block">
+                  <button
+                    class="btn btn-outline d-flex align-items-center justify-content-center"
+                    ngbDropdownToggle
+                  >
+                    <img
+                      alt="Avatar"
+                      width="30"
+                      height="30"
+                      style="border-radius: 50%; margin-right: 5px"
+                      src="{{ form.imagePath }}"
+                      onerror="this.src='assets/images/149071.png'"
+                    />
+
+                    {{ form.fname }}
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button (click)="open(mymodal)" ngbDropdownItem>
+                      <i class="bi bi-person" style="color: green"></i> Profil
+                    </button>
+                    <!-- 
+ <button ngbDropdownItem (click)="openForum(forum)">
+                    Forum
+                  </button>
+                    -->
+
+                    <button (click)="logout()" ngbDropdownItem>
+                      <i class="bi bi-power" style="color: green"></i>
+                      Déconnexion
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Conditions Générales De Vente</b>
+          </h3>
+
+          <p style="color: #585e68">
+            <b>Champ d’application :</b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            Les conditions générales de réservation et conditions particulières
+            de réservation s’appliquent pour l’utilisation des portails web et
+            pour la <br />
+            réservation de trajets MalaBus. <br />
+            MalaBus se réserve le droit de modifier à tout moment les présentes
+            conditions générales de réservation en publiant une nouvelle version
+            sur le site. <br />
+            Les conditions générales de réservations sont celles en vigueur à la
+            date de réservation de la commande. <br />
+            Le fait de cocher la case relative aux présentes conditions
+            générales de réservation lors de processus de validation de la
+            commande emporte <br />
+            acceptation sans réserve par le client de l’intégralité des
+            conditions générales de réservation.
+          </p>
+
+          <p style="color: #585e68">
+            <b>Condition de paiement :</b>
+          </p>
+          <p style="color: #585e68">
+            <b>Achat :</b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            La possibilité de réserver n’est plus valable 2 jours avant le
+            départ. <br />
+            Pour réserver/acheter, le client doit insérer ses identifiants et
+            mots de passe dans l’application. <br />
+            Les places et bus disponibles seront donc affichez ce premier doit
+            choisir le bus qui lui convient en prenant compte de l’heure et des
+            nombres de <br />
+            places disponible puis il devra confirmer son choix. <br />
+            Un email lui sera envoyé avec son billet et code a barre. <br />
+          </p>
+          <p style="color: #585e68">
+            <b> Paiement en ligne :</b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            Les titres de transport peuvent être payés de différente manière
+            selon le type de réservation : <br />
+            - Carte bancaires/cartes de crédit <br />
+            - Carte E-dinar/post <br />
+            Achats par carte de bancaires <br />
+            Dans le cas d'achats par carte bancaire ou de crédit, les comptes
+            clients sont débités une fois la réservation terminée. <br />
+            En cas de rejets de débit des paiements par carte bleue, les clients
+            peuvent être interdits, de façon temporaire ou définitive,
+            d'effectuer <br />
+            des paiements par carte de crédit. <br />
+            Carte E-dinar/post <br />
+            Dans le cas d'achats par carte E dinar ou poste, les comptes clients
+            sont débités une fois la réservation terminée. <br />
+            Achats par carte de crédit Dans le cas d'achats par carte de <br />
+            crédit, les comptes clients sont débités une fois la réservation
+            terminée. En effectuant un paiement par carte de crédit, les clients
+            demandent à leur établissement bancaire, lors de la réservation, de
+            transmettre à MalaBus ou à l'un de ses tiers autorisés leur <br />
+            nom et adresse complète en cas de rejet du débit, afin de permettre
+            à MalaBus de faire valoir ses droits envers ces mêmes clients.
+            <br />
+            En cas de rejets de débit des paiements par carte bleue, les clients
+            peuvent être interdits, de façon temporaire ou définitive,
+            d'effectuer des <br />
+            paiements par carte de crédit <br />.
+            <b>Compensation et droit de rétention</b> <br />
+            Les clients ne pourront compenser leurs créances que si le principe
+            de la compensation légale est applicable, c'est-à-dire qu'elle ne
+            peut s’opérer qu'entre deux obligations fongibles, certaines,
+            liquides et exigibles. Sont fongibles les obligations de somme
+            d'argent, même en différentes devises, pourvu qu'elles soient
+            convertibles peut prouver qu’il a subi un ou des préjudices d’un
+            montant inférieur. La charge de la preuve de la non-utilisation du
+            billet incombe au passager. Un ticket est généré pour chaque
+            personne et chaque trajet. Les correspondances avec transferts
+            (interconnexions) sont traitées comme un seul voyage. Par
+            conséquent, le montant des frais de traitement est calculé en
+            fonction du délai écoulé après le départ jusqu’au moment où la
+            demande de remboursement est faite.
+          </p>
+
+          <p style="color: #585e68">
+            <b>Tolérances : </b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            Le fait pour l’une des Parties de ne pas se prévaloir d’un
+            manquement de l’autre Partie à l’une quelconque de ses obligations
+            issues du Contrat ne <br />
+            saurait être interprété comme une renonciation à l’exécution de
+            l’obligation en cause en l’absence de prescription.
+          </p>
+
+          <p style="color: #585e68">
+            <b> Réclamations : </b>
+          </p>
+          <p style="color: #585e68; font-size: 9px">
+            Pour toute contestation, le client pourra écrire à TechnoGM ,
+            Service Client Synchro ou par mail sur technogm.tn@gmail.com. <br />
+            Le client devra exposer les motifs de ses griefs et produire, le cas
+            échéant, toutes pièces utiles au traitement de sa demande. <br />
+            Par ailleurs, le Client est informé que le Service Clients TechnoGM
+            ne traitera aucune réclamation liée au manquement de l'un de ses
+            Partenaires
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #faq id="fac">
+  <div class="container" class="condetion" *ngIf="textShowpls">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a (click)="scrolTo(home)" style="color: white">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(about)" style="color: white"
+                    >Que faison-nous?</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(serviceSection)" style="color: white"
+                    >Caractéristique</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(TechnoGm)" style="color: white"
+                    >TechnoGm</a
+                  >
+                </li>
+
+                <li class="nav-item">
+                  <a (click)="scrolTo(Partenaires)" style="color: white"
+                    >Partenaires</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(contact)" style="color: white">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div ngbDropdown class="d-inline-block">
+                  <button
+                    class="btn btn-outline d-flex align-items-center justify-content-center"
+                    ngbDropdownToggle
+                  >
+                    <img
+                      alt="Avatar"
+                      width="30"
+                      height="30"
+                      style="border-radius: 50%; margin-right: 5px"
+                      src="{{ form.imagePath }}"
+                      onerror="this.src='assets/images/149071.png'"
+                    />
+
+                    {{ form.fname }}
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button (click)="open(mymodal)" ngbDropdownItem>
+                      <i class="bi bi-person" style="color: green"></i> Profil
+                    </button>
+                    <!-- 
+ <button ngbDropdownItem (click)="openForum(forum)">
+                    Forum
+                  </button>
+                    -->
+
+                    <button (click)="logout()" ngbDropdownItem>
+                      <i class="bi bi-power" style="color: green"></i>
+                      Déconnexion
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>FAQs</b>
+          </h3>
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b> Qu’est-ce qu’un billet imprimable à domicile ? </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b> Quand imprimer mes billets ? </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b> Comment mon billet est-il contrôlé lors du voyage ? </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b>
+              Y a-t-il une entrée spéciale pour les billets électroniques ?
+            </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b>
+              Puis-je reproduire le billet ou l’acheter sur le marché noir ?
+            </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b>
+              Puis-je envoyer ou utiliser un billet par un autre nom de personne
+              ?
+            </b>
+          </div>
+
+          <p style="color: #19184a">
+            Qu'est-ce qu'un billet imprimable à domicile ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Le billet imprimable à domicile est un nouveau mode d’obtention de
+            votre billet. Ce système vous permet d'imprimer des billets de
+            spectacle sur <br />
+            une imprimante ordinaire (format A4, Noir et Blanc ou Couleur). Vous
+            imprimez autant de feuilles que des places achetées (1 feuille = 1
+            billet).
+          </p>
+
+          <p style="color: #19184a">Quand imprimer mes billets ?</p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Le billet imprimable à domicile peut être imprimé immédiatement
+            après avoir effectué votre achat sur l’application, ou plus tard,
+            que ce soit <br />
+            depuis chez vous, du bureau ou de tout autre endroit, en vous
+            connectant à votre espace client, dans la rubrique « Mon compte /
+            Mes e-billets ».
+          </p>
+
+          <p style="color: #19184a">
+            Que dois-je faire en cas de perte de mes billets ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Vos billets imprimables à domicile sont disponibles en permanence
+            sur votre adresse mail, ou sur l’application dans votre espace
+            client, dans la <br />
+            rubrique « Mon compte / Mes e-billets
+          </p>
+
+          <p style="color: #19184a">
+            Comment mon billet est-il contrôlé lors du voyage ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Par la lecture du code barre. Il est impossible d'être admis
+            plusieurs fois avec le même billet. Vous êtes responsable de votre
+            billet. À conserver en <br />
+            lieu sûr
+          </p>
+
+          <p style="color: #19184a">
+            Y a-t-il une entrée spéciale pour les billets électroniques ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Non les billets sont contrôlés à l'entrée du bus, si un changement
+            existe il sera clairement cité sur le billet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #cntc>
+  <div class="container" class="condetion" id="contactnous" *ngIf="contactnss">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a (click)="scrolTo(home)" style="color: white">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(about)" style="color: white"
+                    >Que faison-nous?</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(serviceSection)" style="color: white"
+                    >Caractéristique</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(TechnoGm)" style="color: white"
+                    >TechnoGm</a
+                  >
+                </li>
+
+                <li class="nav-item">
+                  <a (click)="scrolTo(Partenaires)" style="color: white"
+                    >Partenaires</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a (click)="scrolTo(contact)" style="color: white">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div ngbDropdown class="d-inline-block">
+                  <button
+                    class="btn btn-outline d-flex align-items-center justify-content-center"
+                    ngbDropdownToggle
+                  >
+                    <img
+                      alt="Avatar"
+                      width="30"
+                      height="30"
+                      style="border-radius: 50%; margin-right: 5px"
+                      src="{{ form.imagePath }}"
+                      onerror="this.src='assets/images/149071.png'"
+                    />
+
+                    {{ form.fname }}
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button (click)="open(mymodal)" ngbDropdownItem>
+                      <i class="bi bi-person" style="color: green"></i> Profil
+                    </button>
+                    <!-- 
+ <button ngbDropdownItem (click)="openForum(forum)">
+                    Forum
+                  </button>
+                    -->
+
+                    <button (click)="logout()" ngbDropdownItem>
+                      <i class="bi bi-power" style="color: green"></i>
+                      Déconnexion
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Qui Sommes Nous</b>
+          </h3>
+          <img
+            src="../../../assets/images/technogm.png"
+            style="height: 100px; width: 100px; margin-left: 47%"
+            alt=""
+          />
+          <p style="color: #585e68; font-size: 10px; text-align: center">
+            TechnoGM est une société SARL purement Tunisienne, notre entreprise
+            se place dans le secteur de l’informatique, la technique et
+            l’innovation.Nous <br />
+            créons des applications, des sites web, et faisons la numérisation
+            des entreprises afin de les aider à s’améliorer. La technologie se
+            développe tous <br />
+            les jours pour pouvoir suivre l’avancement, il faut être innovant,
+            flexible et ouvert aux possibilités. Nous offrons aux entreprises la
+            possibilité de <br />
+            s’améliorer dans plusieurs domaines tels que la communication
+            interne, leur système d’archives, leurs relations avec leurs
+            clientèles et plus encore. <br />
+            Nous sommes une startup innovante créée en 2019 par des experts en
+            entrepreneuriat et création de projets innovantes. <br />
+            Notre société a obtenu le label startup d’auprès du ministère des
+            technologies et de la communication par le programme STARTUP ACT en
+            2020.
+          </p>
+          <p style="color: #b9b9b9; text-align: center">Que Faisons-Nous?</p>
+
+          <h4
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+            "
+          >
+            <b>Nos Services</b>
+          </h4>
+          <p style="color: #b9b9b9; text-align: center">
+            C’est la richesse de nos idées et notre complémentarité qui fera la
+            réussite de nos projets.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--contact-->
+<div class="footer" >
+  <div id="contact" #contact class="container">
+    <div>
+      <h2 class="choose_text3 h2">Contacter nous</h2>
+      <p class="lorem_text5 contact_p" _ngcontent-serverapp-c6="">
+        Dites-nous Bonjour!
+      </p>
+      <p
+        *ngIf="showMsgAddagency"
+        role="alert"
+        style="margin-left: 218px; color: #43a86f; text-align: center"
+      >
+        Votre message est envoyé au responsable de l'application.
+      </p>
+
+      <p
+        *ngIf="errorMessagecontact.show"
+        role="alert"
+        style="margin-left: 218px; color: #bd5959; text-align: center"
+      >
+        {{ errorMessagecontact.msg }}
+      </p>
+    </div>
+    <form [formGroup]="ContactForm" (ngSubmit)="addContact()">
+      <div class="row" _ngcontent-serverapp-c6="">
+        <div class="col-sm-4" _ngcontent-serverapp-c6="">
+          <input
+            _ngcontent-serverapp-c6=""
+            type="text"
+            name="Name"
+            class="email-bt"
+            placeholder="Nom"
+            formControlName="nomUser"
+          /><input
+            _ngcontent-serverapp-c6=""
+            type="text"
+            name="Email"
+            class="email-bt"
+            placeholder="Email"
+            formControlName="emailUser"
+          />
+        </div>
+        <div class="col-sm-8" _ngcontent-serverapp-c6="">
+          <textarea
+            _ngcontent-serverapp-c6=""
+            rows="5"
+            id="comment"
+            name="text"
+            formControlName="texte"
+            class="massage-bt"
+            placeholder="Ecrire ici ou contactez nous à l'adresse mail suivante :  contact@malabus.net"
+          ></textarea>
+        </div>
+        <div class="col-sm-4" _ngcontent-serverapp-c6="">
+          <div class="btn_main" _ngcontent-serverapp-c6="">
+            <button
+              _ngcontent-serverapp-c6=""
+              type="submit"
+              class="read_bt"
+              style="width: 72%"
+            >
+              <a>ENVOYER</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--footer-->
+<div class="route">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <a style="cursor: pointer"
+          ><img src="../assets/images/logofooter.png" class="logo"
+        /></a>
+      </div>
+      <div class="col-sm-2">
+        <table>
+          <tr>
+            <th class="tr1">Liens rapides :</th>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo(home)" style="color: white">Accueil</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo(about)" style="color: white"
+                >Que faison-nous?</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo(serviceSection)" style="color: white"
+                >Caractéristique</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo(TechnoGm)" style="color: white">TechnoGm</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo(Partenaires)" style="color: white"
+                >Partenaires</a
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-2">
+        <table class="tab2">
+          <tr>
+            <th class="tr1">Centre d’aide :</th>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a >Contacter nous</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo3(conditionGeneral)"
+                >Conditions Générales de Vente</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo5(confd)">Confidentialité</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo2(faq)">FAQs</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a (click)="scrolTo4(mentionL)">Mentions légales</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-2">
+        <table>
+          <tr>
+            <th class="tr1">Rejoignez-nous sur :</th>
+          </tr>
+          <tr>
+            <td>
+              <a
+                target="_blank"
+                href="https://www.facebook.com/malabustn"
+                class="fafb"
+                ><i class="fa fa-facebook"></i></a
+              ><a
+                target="_blank"
+                href="https://www.instagram.com/malabustn/"
+                class="fainst"
+                ><i class="fa fa-instagram"></i
+              ></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-3">
+        <table>
+          <tr>
+            <th></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="btn_main1">
+                <button type="button" class="read_btapp">
+                  <table class="store">
+                    <tr>
+                      <td rowspan="2">
+                        <img src="/assets/images/AppStore.png" class="store1" />
+                      </td>
+                      <td>App Store</td>
+                    </tr>
+                  </table>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="btn_main2">
+                <button type="button" class="read_bt2">
+                  <table class="store">
+                    <tr>
+                      <td rowspan="2">
+                        <img
+                          src="../assets/images/PlayStore.png"
+                          class="store1"
+                        />
+                      </td>
+                      <td _ngcontent-serverapp-c6="">Play Store</td>
+                    </tr>
+                  </table>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--copyrihth-->
+<div class="footer1">
+  <p class="copy_text">© 2022 TechnoGM. Tous les droits sont réservés.</p>
+</div>
+
+<ng-template #mymodal let-modal>
+  <form
+    name="form"
+    #f="ngForm"
+    (ngSubmit)="updateuser(f)"
+    style="margin-top: -70px"
+  >
+    <div class="wrapper bg-white mt-sm-5">
+      <div class="file-upload">
+        <img
+          src="{{ form.imagePath }}"
+          style="border-radius: 100px"
+          onerror="this.src='assets/images/149071.png'"
+        />
+        <input type="file" (change)="getImage($event)" name="somename" />
+      </div>
+
+      <div class="py-2">
+        <div class="row" style="margin-top: -40px">
+          <div class="col">
+            <label for="firstname">Email</label>
+            <input
+              type="text"
+              class="bg-light form-control"
+              name="email"
+              id="email"
+              aria-label="Disabled input example" disabled
+              [(ngModel)]="form.email"
+            />
+          </div>
+       
+       
+        </div>
+        <div class="row" >
+          <div class="col">
+            <label for="firstname">Nom</label>
+            <input
+              type="text"
+              class="bg-light form-control"
+              name="fname"
+              id="fname"
+              [(ngModel)]="form.fname"
+            />
+          </div>
+          <div class="col">
+            <label for="lastname">Prénom</label>
+            <input
+              type="text"
+              class="bg-light form-control"
+              name="lname"
+              id="lname"
+              [(ngModel)]="form.lname"
+            />
+          </div>
+          <div class="col">
+            <label for="address">Date de naissance</label>
+            <input
+            type="datetime"
+            class="bg-light form-control"
+            name="birthday"
+            id="birthday"
+            [(ngModel)]="form.birthday"
+          />
+    
+          </div>
+        </div>
+        <div class="row py-2">
+          <div class="col">
+            <label for="civility">Civilité</label>
+            <select
+              name="civility"
+              id="civility"
+              [(ngModel)]="form.civility"
+              value="form.civility"
+              class="form-control"
+            >
+              <option value="Mlle">Mlle</option>
+              <option value="Madame">Madame</option>
+              <option value="Monsieur">Monsieur</option>
+            </select>
+          </div>
+                  
+          <div class="col">
+            <label for="phone">Téléphone</label>
+            <input
+              type="tel"
+              class="bg-light form-control"
+              name="phoneNum"
+              id="phoneNum"
+              [(ngModel)]="form.phoneNum"
+            />
+          </div>
+
+          <div class="col">
+            <label for="job">Fonction</label>
+            <div class="arrow">
+              <select
+                [(ngModel)]="form.job"
+                name="job"
+                id="job"
+                value="form.job"
+                class="form-control"
+              >
+                <option value="étudiant">étudiant</option>
+                <option value="Employé">Employé</option>
+                <option value="Chômeur">Chômeur</option>
+                <option value="Retraité">Retraité</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row py-2">
+          <div class="col">
+            <label for="job">Ville</label>
+            <select
+            [(ngModel)]="form.city"
+            name="city"
+            id="city"
+            value="form.city"
+            class="form-control"
+            >
+              <option value="" selected disabled>Ville</option>
+              <option value="Ariana">Ariana</option>
+              <option value="Béja">Béja</option>
+              <option value="Ben Arous">Ben Arous</option>
+              <option value="Bizerte">Bizerte</option>
+              <option value="Gabès">Gabès</option>
+              <option value="Gafsa">Gafsa</option>
+              <option value="Jendouba">Jendouba</option>
+              <option value="Kairouan">Kairouan</option>
+              <option value="Sbeïtla">Sbeïtla</option>
+              <option value="Kébili">Kébili</option>
+              <option value="Le Kef">Le Kef</option>
+              <option value="Mahdia">Mahdia</option>
+              <option value="La Manouba">La Manouba</option>
+              <option value="	Médenine">Médenine</option>
+              <option value="Nabeul">Nabeul</option>
+              <option value="Sfax">Sfax</option>
+              <option value="Sidi Bouzid">Sidi Bouzid</option>
+              <option value="Siliana">Siliana</option>
+              <option value="Sousse">Sousse</option>
+              <option value="Tataouine">Tataouine</option>
+              <option value="Tozeur">Tozeur</option>
+              <option value="Tunis">Tunis</option>
+              <option value="Zaghouan">Zaghouan</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="lastname">Adresse</label>
+            <input
+              type="text"
+              class="bg-light form-control"
+              name="address"
+              id="address"
+              [(ngModel)]="form.address"
+            />
+          </div>
+          <div class="col">
+            <label for="lastname">Code postale</label>
+            <input
+              type="text"
+              class="bg-light form-control"
+              name="postalCode"
+              id="postalCode"
+              [(ngModel)]="form.postalCode"
+            />
+          </div>
+        </div>
+        <div class="py-3 pb-4 border-bottom">
+          <button
+            type="submit"
+            class="btn btn-primary mr-3 btn-annuler"
+            data-dismiss="modal"
+            (click)="modal.close('Save click')"
+          >
+            Annuler
+          </button>
+
+          <button type="submit" class="btn btn-primary mr-3">Modifier</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #acheter let-modal>
+  <div class="modal-body">
+    <mat-horizontal-stepper
+      style="border-radius: 8px; width: 558px ;"
+      [linear]="isLinear"
+      #stepper
+    >
+        <form [formGroup]="Addreservation"> 
+          <mat-step [stepControl]="firstFormGroup">
+          <ng-template matStepLabel>Réservation</ng-template>
+          <br />
+          <span
+            style="
+              text-align: center;
+              margin-top: 30px;
+              font-size: 178%;
+              margin-left: 28%;
+            "
+          >
+            <b> Détails de voyage </b>
+          </span>
+          <br />
+
+          <mat-list>
+            <mat-list-item>
+              <strong
+                ><img src="../../assets/images/point.PNG" alt="" />
+                {{ dataVoyage.arretDepart }}
+              </strong>
+              <p
+                style="
+                  margin-top: 11px;
+                  margin-left: 312px;
+                  color: rgb(77, 70, 70);
+                "
+              >
+                {{ dataVoyage.heurDepart }}
+              </p></mat-list-item
+            >
+            <mat-list-item>
+              <strong
+                ><img src="../../assets/images/point.PNG" alt="" />{{
+                  dataVoyage.arretArrive
+                }}
+              </strong>
+              <p
+                style="
+                  margin-top: 11px;
+                  margin-left: 324px;
+                  color: rgb(77, 70, 70);
+                "
+              >
+                {{ dataVoyage.heurArrive }}
+              </p>
+            </mat-list-item>
+            <mat-list-item>
+              <strong
+                ><img
+                  src="../../assets/images/point.PNG"
+                  alt=""
+                />Distance</strong
+              >
+              <p
+                style="
+                  margin-top: 11px;
+                  margin-left: 320px;
+                  color: rgb(77, 70, 70);
+                "
+              >
+                {{ dataVoyage.distance }}KM
+              </p></mat-list-item
+            >
+            <mat-list-item>
+              <strong
+                ><img src="../../assets/images/point.PNG" alt="" />Nombre des
+                places</strong
+              >
+              <input
+              formControlName="nbPlace"
+              type="number"
+              class="form-control"
+              style="width: 139px; margin-left: 151px"
+              />
+             
+            </mat-list-item>
+            <mat-list-item>
+              <strong
+                ><img src="../../assets/images/point.PNG" alt="" />Prix</strong
+              >
+              <p
+                style="
+                  margin-top: 11px;
+                  margin-left: 348px;
+                  color: rgb(77, 70, 70);
+                "
+              >
+                {{ dataVoyage.prix }}DT
+              </p></mat-list-item
+            >
+          </mat-list>
+          <div>
+            <button
+              style="
+                background-color: rgb(91, 148, 91);
+                margin-left: 396px;
+                margin-top: 8px;
+                color: white;
+              "
+              mat-button
+              matStepperNext
+            >
+              Suivant
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+         <ng-template matStepLabel>Voyageur</ng-template>
+          <br />
+          <br />
+          <span
+            style="
+              text-align: center;
+              text-align: center;
+              margin-left: 21%;
+              font-size: 178%;
+            "
+          >
+            <b>Qui passe la Commande ?</b>
+          </span>
+
+          <br />
+          <br />
+            <input
+            class="form-control"
+            type="email"
+            formControlName="email_User"
+            placeholder="Foulenbenfoulen@gmail.com"
+          />
+            <br />
+            <input
+              class="form-control"
+              type="text"
+              placeholder="+216 123 456 7"
+            />
+            <br />
+            <span
+              style="
+                text-align: center;
+                text-align: center;
+                margin-left: 35%;
+                font-size: 178%;
+              "
+            >
+              <b>Qui voyage</b>
+            </span>
+            <br />
+            <br />
+
+            <div class="form-check form-check-inline">
+              <label style="margin-top: 3px"
+                >C'est la méme personne qui passe la command ?</label
+              >
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio1"
+                value="option1"
+              />
+            </div>
+            <input
+            class="form-control"
+            type="text"
+            placeholder="Nom"
+            formControlName="lname"
+          />
+            <br />
+            <input
+            class="form-control"
+            type="text"
+            placeholder="Prénom"
+            formControlName="fname"
+          />
+            <br />
+            <input
+            class="form-control"
+            type="number"
+            placeholder="+216 123 456 7"
+            formControlName="numTel"
+          />
+          <div>
+            <button
+              mat-button
+              matStepperPrevious
+              style="background-color: rgb(91, 148, 91); color: white"
+            >
+              <i class="bi bi-arrow-left"></i>
+            </button>
+            <button
+              mat-button
+              matStepperNext
+              style="
+                margin-left: 377px;
+                margin-top: 15px;
+
+                background-color: rgb(91, 148, 91);
+                color: white;
+              "
+            >
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Paiement</ng-template>
+          <div id="#myPaypalButtons" #myPaypalButtons>
+
+          </div>
+             <div>
+          <button
+            style="
+              margin-left: 415px;
+              margin-top: 16px;
+              background-color: rgb(89, 185, 223);
+              color: white;
+            "
+            mat-button
+            (click)="addReservation()"
+            >
+            Confirmer
+          </button>
+        </div>
+      </mat-step>
+    </form>
+    </mat-horizontal-stepper>
+  </div>
+</ng-template>
+
+
+
+
+
+
+<!-- 
+<div id="myPaypalButtons">
+
+</div> -->

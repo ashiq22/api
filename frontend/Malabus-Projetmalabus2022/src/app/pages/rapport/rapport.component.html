@@ -1,0 +1,75 @@
+<body>
+  <div class="content" style="margin-left: 64px">
+    <div class="row">
+      <div class="card" style="background: #ffffff">
+        <div class="card-header" style="margin-top: 23px">
+          <h4
+            class="card-title"
+            style="color: #333333; font-family: Bold; font-size: 24px"
+          >
+            Rapport des ventes
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
+                <i class="bi bi-box-arrow-up"></i>
+                  Exporter
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button (click)="makePDf()" ngbDropdownItem>
+                    <i class="bi bi-file-pdf" style="color: red"></i>
+                    PDF
+                  </button>
+                  <button (click)="exportexcel()" ngbDropdownItem>
+                    <i class="bi bi-file-excel" style="color: green"></i> Excel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+
+          <div class="row">
+            <div class="col" #content id="content">
+              <table class="table">
+                <thead class="text-primary" style="background: #e3e9ef">
+                  <tr>
+                    <th style="color: #b3b8bd">Ligne</th>
+                    <th style="color: #b3b8bd">Date de voyage</th>
+                    <th style="color: #b3b8bd; text-align: center">
+                      Nombre des tickets vendues
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of result; index as i">
+                    <td>
+                      <p style="color: #52575d">{{ item.ligne }}</p>
+                    </td>
+                    <td style="text-align: center">
+                      <p style="color: #52575d">{{ item.date_voyage }}</p>
+                    </td>
+                    <td style="text-align: center">
+                      <p style="color: #52575d; text-align: center">
+                        {{ item.nbticketvondue }}
+                      </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

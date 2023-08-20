@@ -1,0 +1,164 @@
+<body>
+  <div class="content" style="margin-left: 64px">
+    <div class="row">
+      <div class="card" style="background: #ffffff">
+        <div class="card-header" style="margin-top: 23px">
+          <h4
+            class="card-title"
+            style="color: #333333; font-family: Bold; font-size: 24px"
+          >
+            Historique des tickets
+          </h4>
+        </div>
+        <div class="col-md-6">
+          <div class="form">
+            <i class="fa fa-search"></i>
+            <input
+              (keyup)="search($event)"
+              type="date"
+              class="form-control form-input"
+              placeholder="Chercher une ligne"
+            />
+          </div>
+        </div>
+        <br>
+
+
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+           
+              <button
+              type="button"
+              class="btn btn-outline-primary"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+            <i class="bi bi-box-arrow-up"></i>
+              Exporter
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button (click)="openPDF()" ngbDropdownItem>
+                <i class="bi bi-file-pdf" style="color: red"></i>
+                PDF
+              </button>
+              <button (click)="exportexcel()" ngbDropdownItem>
+                <i class="bi bi-file-excel" style="color: green"></i> Excel
+              </button>
+            </div>
+            </div>
+          </div>
+        </div>
+  
+  
+
+
+
+        
+      
+        
+
+
+
+
+        <div class="card-body">
+          
+        
+          <div
+            class="table-wrapper-scroll-y my-custom-scrollbar"
+            style="height: 340px"
+            #content id="content"
+          >
+            <table
+              class="table table-bordered table-striped mb-0"
+              id="htmlData"
+            >
+              <thead class="text-primary" style="background: #e3e9ef">
+                <tr>
+                  <th style="color: #b3b8bd; text-align: center">ID</th>
+                  <th style="color: #b3b8bd; text-align: center">N° ticket</th>
+
+                  <th style="color: #b3b8bd; text-align: center">Ligne</th>
+                  <th style="color: #b3b8bd; text-align: center">Voyageur</th>
+                  <th style="color: #b3b8bd; text-align: center">Téléphone</th>
+                  <th style="color: #b3b8bd; text-align: center">Date</th>
+                  <th style="color: #b3b8bd; text-align: center">Places</th>
+                  <th style="color: #b3b8bd; text-align: center">N° Bus</th>
+                  <th style="color: #b3b8bd; text-align: center">Trajet</th>
+                  <th style="color: #b3b8bd; text-align: center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataHistoriqueticket; index as i">
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.id_ticket }}
+                    </p>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.nbticket }}
+                    </p>
+                  </td>
+
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.nomLigne }}
+                    </p>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.lname }} {{ item.fname }}
+                    </p>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.numTel }}
+                    </p>
+                  </td>
+
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.dateVoyage }}
+                    </p>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.nbPlace }}
+                    </p>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.numBus }}
+                    </p>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.arretDepart }} :{{ item.heurDepart }}
+                    </p>
+                    <br />
+                    <p style="color: #52575d; text-align: center">
+                      {{ item.arretArrive }}:
+                      {{ item.heurArrive }}
+                    </p>
+                  </td>
+                  <td style="text-align: center">
+                    <a (click)="makePDf2(item)" style="text-align: center">
+                      <i
+                        class="bi bi-file-pdf"
+                        style="color: red"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Télécharger ticket"
+                      ></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

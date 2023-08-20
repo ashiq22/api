@@ -1,0 +1,454 @@
+<h3>{{ infoDialog.title }}</h3>
+<form [formGroup]="addligneForm">
+
+  <div class="row">
+    <div class="col">
+      <input
+      (keyup)="search($event)"
+        type="text"
+        placeholder="De"
+        class="form-control"
+        matInput
+        formControlName="nom_ligne"
+
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let item of initdata" [value]="item.nom_ligne"
+        >
+          {{ item.nom_ligne }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <div class="col">
+      <button style="    width: 78px;
+      margin-top: 1px;"
+        (click)="open(mymodalLigne)" type="button" class="btn btn-outline-success"> + Ligne
+      </button>
+    </div>
+  </div>
+
+
+
+ <div class="form-group">
+    <div class="row">
+      <div class="col">
+        <select
+          class="form-control"
+          formControlName="arretligne"
+          class="selectpicker"
+          style="width:
+           300px"
+          data-selected-text-format="count"
+          [multiple]="true"
+        >
+          <option selected>Selectionnée les arrêts</option>
+          <option
+            (click)="addArretSelected(topping.nom_arret, topping._id, topping.longitude , topping.latitude ,i)"
+            *ngFor="let topping of dataArret let i = index"
+            [value]="topping._id"
+            [selected]="topping._id == true"
+          >
+            {{ topping.nom_arret }}
+          </option>
+        </select>
+
+      
+      </div>
+<!-- 
+      <div class="col">
+        <button style="    width: 78px;
+      margin-top: 1px;"
+        (click)="open(mymodal)" type="button" class="btn btn-outline-success"> + Arrét
+      </button>
+      </div> -->
+     
+    </div>
+  </div>
+ 
+  <form [formGroup]="productForm">
+    <h5 style="color: black">Détail arret</h5>
+    <table
+      class="table table-bordered"
+      formArrayName="arretData"
+      style="margin-left: -13px"
+    >
+      <tr
+        *ngFor="let quantity of arretData().controls let i = index"
+        [formGroupName]="i"
+      >
+        <td style="border-color: white">
+          Nom d'arret :
+          <input
+            type="text"
+            formControlName="nom_arret"
+            style="background: white; border-color: black; color: black;     width: 182px;
+            
+            "
+            [value]="nom_arret"
+            class="form-control"
+          />
+        </td>
+        <td style="border-color: white">
+          Heure départ:
+          <input
+            type="time"
+            style="color: black ;"
+            formControlName="heure_depart"
+            class="form-control"
+          />
+        </td>
+        <td >
+          Heure arrivé:
+          <input
+            type="time"
+            style="color: black"
+            formControlName="heure_arrive"
+            class="form-control"
+          />
+        </td>
+        <td style="border-color: white">
+          Distance:
+          <input
+            type="text"
+            style="color: black ;width: 75px;            "
+            formControlName="distance"
+            class="form-control"
+            placeholder="distance"
+          />
+        </td>
+        <td style="border-color: white">
+          Prix:
+          <input
+            type="text"
+            style="color: black ;width: 75px;            "
+            formControlName="prix"
+            placeholder="prix"
+            class="form-control"
+          />
+        </td>
+        <td style="border-color: white">
+          Départ retour 
+          <input
+            type="time"
+            style="color: black"
+            formControlName="heure_depart_retour"
+            class="form-control"
+          />
+        </td>
+        <td style="border-color: white">
+           Arrivé retour
+          <input
+            type="time"
+            style="color: black"
+            formControlName="heure_depart_arrive"
+            class="form-control"
+          />
+        </td>
+        <td style="border-color: white">
+          <button
+            (click)="removeArret(i)"
+            style="margin-top: 19px"
+            class="btn btn-danger btn-fab btn-icon btn-round"
+          >
+            X
+          </button>
+        </td>
+        <td style="border-color: white">
+          <input
+            style="background: white; border-color: white; color: white"
+            type="text"
+            formControlName="id"
+            class="form-control"
+          />
+        </td>
+      </tr>
+    </table>
+  </form>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-12">
+        <label for="adresse">Durreé de ligne</label>
+        <input
+          style="color: #52575d"
+          formControlName="duree"
+          id="adresse"
+          class="form-control"
+          type="text"
+          name=""
+          placeholder="Entrer durreé"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="adresse">Distance</label>
+        <input
+          style="color: #52575d"
+          formControlName="distance"
+          id="adresse"
+          class="form-control"
+          type="text"
+          name=""
+          placeholder="Entrer distance de ligne"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label for="adresse">Unité distance</label>
+        <select
+          style="color: black"
+          class="form-control"
+          formControlName="type_distance"
+        >
+          <option style="color: black; margin-top: 2px" value="" selected>
+            Séléctionner unité distance
+          </option>
+          <option style="color: black; margin-top: 2px" value="km">KM</option>
+          <option style="color: black; margin-top: 2px" value="m">M</option>
+          <option style="color: black; margin-top: 2px" value="option">
+            Autres
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="mail">Prix de ligne</label>
+        <input
+          style="color: #52575d"
+          formControlName="prix"
+          id="mail"
+          class="form-control"
+          type="text"
+          name=""
+          placeholder="Entrer Prix de ligne "
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="numéro">Unité prix</label>
+        <select
+          style="color: black"
+          class="form-control"
+          formControlName="unite_prix"
+        >
+          <option style="color: black; margin-top: 2px" value="" selected>
+            Séléctionner unité prix
+          </option>
+          <option style="color: black; margin-top: 2px" value="DT">DT</option>
+         
+         
+        </select>
+       
+      </div>
+    </div>
+   
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-12">
+        <label for="adresse">Numéro de bus</label>
+        <input
+          style="color: #52575d"
+          formControlName="num_bus"
+          id="adresse"
+          class="form-control"
+          type="text"
+          name=""
+          placeholder="Entrer numéro de bus"
+        />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="errorMessage.show" class="alert alert-danger" role="alert"
+  style="margin-top: 10px;
+  background-color: rgb(202, 137, 126);
+  height: 43px;
+  ">
+<p style="color: #FFFFFF ; margin-left: -7px; text-align: center; ">
+{{errorMessage.msg}}
+</p>
+
+</div>
+
+  <button  (click)="dialogFunction()" type="submit" class="btn btn-outline-success">
+    {{ infoDialog.btn }}
+  </button>
+</form>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="background: #ffffff">
+          <div class="card-header">
+            <h4
+              class="card-title"
+              style="color: #333333; font-family: Bold; font-size: 24px"
+            >
+              Ajouter nouvelle arrêt
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="container">
+              <form [formGroup]="arretForm" (ngSubmit)="addArret()">
+                <div class="form-group">
+                  <input
+                    [ngClass]="{
+                      'is-invalid':
+                        nom_arret.invalid &&
+                        (nom_arret.dirty || nom_arret.touched)
+                    }"
+                    class="form-control input-lg"
+                    type="text"
+                    style="color: black; "
+                    placeholder="Nom arret"
+                    formControlName="nom_arret"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      nom_arret.invalid &&
+                      (nom_arret.dirty || nom_arret.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="nom_arret.errors?.['required']"
+                      >nom_arret obligatoire</span
+                    >
+                  </div>
+                </div>
+                <br>
+
+                <div class="form-group">
+                  <input
+                    class="form-control input-lg"
+                    type="text"
+                    style="color: black; "
+                    placeholder="Longitude"
+                    formControlName="longitude"
+                  />
+                </div>
+                <br>
+                <div class="form-group">
+                  <input
+                    class="form-control input-lg"
+                    type="text"
+                    style="color: black; "
+                    placeholder="Latitude"
+                    formControlName="latitude"
+                  />
+                </div>
+                <br>
+                <div
+                  *ngIf="showMsgAddLigne"
+                  class="alert alert-success"
+                  role="alert"
+                  style="color: white; text-align: center"
+                >
+                    Arrêt ajouter
+                </div>
+                <div
+                  *ngIf="errorMessage.show"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="background-color: rgb(202, 137, 126);
+                  "
+                >
+                    {{ errorMessage.msg }}
+                </div>
+                <div class="form-group">
+                  <input
+                      type="submit"
+                    class="btn btn-success btn-lg"
+                    value="Ajouter"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #mymodalLigne let-modal>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="background: #ffffff">
+          <div class="card-header">
+            <h4
+              class="card-title"
+              style="color: #333333; font-family: Bold; font-size: 24px"
+            >
+              Ajouter nouvelle ligne
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="container">
+              <form [formGroup]="ligneForm" (ngSubmit)="addLigne()">
+                <div class="form-group">
+                  <input
+                    class="form-control input-lg"
+                    type="text"
+                    style="color: black;"
+                    placeholder="Ligne"
+                    formControlName="nom_ligne"
+                  />
+                </div>
+                <br>
+                <div
+                  *ngIf="showMsgAddLigne"
+                  class="alert alert-success"
+                  role="alert"
+                  style="
+                    margin-top: 10px;
+                    background-color: darkseagreen;
+                  
+                  "
+                >
+                  <p style="text-align: center; margin-top: -8px">
+                    Ligne ajouter
+                  </p>
+                </div>
+                <div
+                  *ngIf="errorMessage.show"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="
+                    margin-top: 10px;
+                    background-color: rgb(202, 137, 126);
+                
+                  "
+                >
+                  <p style="color: #ffffff; text-align: center">
+                    {{ errorMessage.msg }}
+                  </p>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="submit"
+                    class="btn btn-success btn-lg"
+                    value="Ajouter"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+

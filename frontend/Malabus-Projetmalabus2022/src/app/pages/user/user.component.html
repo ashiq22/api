@@ -1,0 +1,217 @@
+<body>
+  <div class="content" style="margin-left: 64px">
+    <div class="row">
+      <div class="col-xl-4">
+        <!-- Profile picture card-->
+        <div class="card">
+          <div class="card-header">Logo Société</div>
+          <div class="card-body text-center">
+            <!-- Profile picture image-->
+            <img
+              class="img-account-profile rounded-circle mb-2"
+              src="{{ form.imagePath }}"
+              alt=""
+            />
+           
+          </div>
+
+            <!-- Profile picture help block-->
+            <!-- Profile picture upload button-->
+            <h2>{{ form.nameagency }}</h2>
+            <input
+            type="file"
+            (change)="getImage($event)"
+            name="somename"
+            style="margin-left: 15%;"
+          />
+        </div>
+      </div>
+    
+      <div class="col-xl-8">
+        <!-- Account details card-->
+        <div class="card mb-4">
+          <div class="card-header">Détails du compte</div>
+          <div class="card-body">
+            <form name="form" #f="ngForm" (ngSubmit)="updateAgence(f)">
+              <!-- Form Group (username)-->
+
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (first name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputFirstName"
+                    >Nom agence</label
+                  >
+                  <input
+                    class="form-control"
+                    name="nameagency"
+                    id="nameagency"
+                    [(ngModel)]="form.nameagency"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputFirstName"
+                    >Matricule</label
+                  >
+                  <input
+                    class="form-control"
+                    name="matricule"
+                    id="matricule"
+                    [(ngModel)]="form.matricule"
+                  />
+                </div>
+
+                <!-- Form Group (last name)-->
+              </div>
+
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (first name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputLastName">Email</label>
+                  <input
+                    class="form-control"
+                    name="email"
+                    id="email"
+                    [(ngModel)]="form.email"
+                  />
+                </div>
+                <!-- Form Group (last name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputOrgName"
+                    >Numéro CNSS</label
+                  >
+                  <input
+                    class="form-control"
+                    class="form-control"
+                    type="text"
+                    name="num_cnss"
+                    id="num_cnss"
+                    [(ngModel)]="form.num_cnss"
+                  />
+                </div>
+              </div>
+              <!-- Form Row        -->
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (organization name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputOrgName">Num tél</label>
+                  <input
+                    class="form-control"
+                    name="telAgence"
+                    id="telAgence"
+                    [(ngModel)]="form.telAgence"
+                  />
+                </div>
+                <!-- Form Group (location)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputLocation">Adresse</label>
+                  <input
+                    class="form-control"
+                    name="adressAgencce"
+                    id="email"
+                    [(ngModel)]="form.adressAgencce"
+                  />
+                </div>
+              </div>
+              <!-- Form Group (email address)-->
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (organization name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputOrgName"
+                    >Secteur d'activité</label
+                  >
+                  <select
+                    name="business_sector"
+                    id="business_sector"
+                    [(ngModel)]="form.business_sector"
+                    value="form.business_sector"
+                    style="color: gray"
+                    class="form-control"
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>
+                      Secteur d'activité
+                    </option>
+                    <option value="Transport terrestre routier international">
+                      Transport terrestre routier international
+                    </option>
+                    <option value="Transport terrestre routier de marchandises">
+                      Transport terrestre routier de marchandises
+                    </option>
+                    <option value="Transport collectif de personnes">
+                      Transport collectif de personnes
+                    </option>
+                    <option value="Transport ferroviaire">
+                      Transport ferroviaire
+                    </option>
+                  </select>
+                </div>
+                <!-- Form Group (location)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputLocation"
+                    >Statut légal</label
+                  >
+                  <select
+                    style="color: gray; margin-left: -11px"
+                    name="legal_status"
+                    id="legal_status"
+                    [(ngModel)]="form.legal_status"
+                    class="form-control"
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>Statut juridique</option>
+                    <option value="SARL">SARL</option>
+                    <option value="SURL">SURL</option>
+                    <option value="SAS">SAS</option>
+                    <option value="SA">SA</option>
+                    <option value="Autre">Autre</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (phone number)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputPhone"
+                    >Nom personne à contacter</label
+                  >
+                  <input
+                    class="form-control"
+                    name="nompersonneContact"
+                    id="nompersonneContact"
+                    [(ngModel)]="form.nompersonneContact"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputPhone"
+                    >Prénom personne à contacter</label
+                  >
+                  <input
+                    class="form-control"
+                    name="prenomersonneContact"
+                    id="prenomersonneContact"
+                    [(ngModel)]="form.prenomersonneContact"
+                  />
+                </div>
+                <!-- Form Group (birthday)-->
+                <div class="col-md-6" style="margin-left: 228px">
+                  <label class="small mb-1" for="inputBirthday"
+                    >Tél personne à contacter</label
+                  >
+                  <input
+                    class="form-control"
+                    name="telpesContact"
+                    id="email"
+                    [(ngModel)]="form.telpesContact"
+                  />
+                </div>
+              </div>
+              <!-- Save changes button-->
+              <button class="btn btn-primary" type="submit">Modifier</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

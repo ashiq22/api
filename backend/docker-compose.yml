@@ -1,0 +1,15 @@
+version: "3"
+services:
+ malabus:
+    image: malabus
+    build: ./
+    ports:
+      - "3000:3000"
+    networks:
+      - mern-app
+networks:
+  mern-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local

@@ -1,0 +1,110 @@
+<body>
+
+  <div id="wrapper" class="toggled">
+
+      <!-- Sidebar -->
+      <html>
+        <head>
+       
+        </head>
+        <body><div class="area"></div><nav class="main-menu">
+                  <ul>
+
+                      <li>
+                          <a routerLink="/agence/add-infoligne">
+                              <i class="fa fa-bus fa-2x"></i>
+                              <span class="nav-text">
+                                  Planificateur des lignes
+                              </span>
+                          </a>
+                        
+                      </li>
+                      <li class="has-subnav">
+                          <a routerLink="/agence/gestionvouyage">
+                              <i class="fa fa-calendar fa-2x"></i>
+                              <span class="nav-text">
+                                Planificateur des voyages
+                              </span>
+                          </a>
+                          
+                      </li>
+                      <li class="has-subnav">
+                          <a routerLink="/agence/historique">
+                             <i class="fa fa-list fa-2x"></i>
+                              <span class="nav-text">
+                                  Historique des tickets
+                              </span>
+                          </a>
+                          
+                      </li>
+                      <li class="has-subnav">
+                          <a routerLink="/agence/rapport">
+                             <i class="fa fa-shopping-cart"></i>
+                              <span class="nav-text">
+                                  Rapport des ventes
+                              </span>
+                          </a>
+                         
+                      </li>
+                      <!--
+   <li>
+                          <a routerLink="/agence/dashboard">
+                              <i class="fa fa-bar-chart-o fa-2x"></i>
+                              <span class="nav-text">
+                                  Chart
+                              </span>
+                          </a>
+                      </li>
+                      -->
+                   
+                      <li>
+                          <a routerLink="/agence/user">
+                              <i class="fa fa-user fa-2x"></i>
+                              <span class="nav-text">
+                                 Profile
+                              </span>
+                          </a>
+                      </li>
+                   
+                   
+                  </ul>
+      
+
+
+                  <ul class="logout">
+                      <li>
+                         <a (click)="logout()">
+                               <i class="fa fa-power-off fa-2x"></i>
+                              <span class="nav-text">
+                                Déconnexion
+                              </span>
+                          </a>
+                      </li>  
+                  </ul>
+              </nav>
+        </body>
+          </html>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper" style="background-color:rgb(197, 206, 206) ;">
+          <div class="container-fluid">
+              <router-outlet></router-outlet>
+
+          </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Menu Toggle Script -->
+  <script>
+  $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+  });
+  </script>
+
+
+</body>

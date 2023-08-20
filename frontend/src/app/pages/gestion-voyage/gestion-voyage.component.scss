@@ -1,0 +1,68 @@
+.height{
+
+    height: 30vh;
+}
+
+.form{
+
+    position: relative;
+    
+}
+
+.form .fa-search{
+
+    position: absolute;
+    top:20px;
+    left: 20px;
+    color: #9ca3af;
+
+}
+
+.form span{
+
+        position: absolute;
+    right: 17px;
+    top: 13px;
+    padding: 2px;
+    border-left: 1px solid #d1d5db;
+
+}
+
+.left-pan{
+    padding-left: 7px;
+}
+
+.left-pan i{
+   
+   padding-left: 10px;
+}
+
+.form-input{
+    color: black;
+    height: 55px;
+    box-shadow: skyblue 2px 2px 2px;
+    border:skyblue 2px;
+    border-radius: 10px;
+    text-indent: 35px;
+}
+
+.form-input:focus{
+
+    box-shadow: none;
+    border:rgb(27, 131, 172) solid 2px;
+}
+.my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }
+
+    .btn-circle.btn-lg {
+        width: 30px;
+        height: 30px;
+        padding: 10px 16px;
+        border-radius: 25px;
+      }

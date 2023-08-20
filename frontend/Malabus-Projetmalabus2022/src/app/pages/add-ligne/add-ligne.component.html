@@ -1,0 +1,46 @@
+<div class=" content">
+    <div class=" row">
+      <div class=" col-md-12">
+        <div class="card" style="background: #FFFFFF">
+          <div class=" card-header">
+            <h4 class=" card-title" style="color: #333333 ; font-family: Bold; font-size: 24px">Ajouter nouvelle ligne </h4>
+          </div>
+          <hr>
+          <div class=" card-body">
+            <div class="container">
+                <form [formGroup]="ligneForm" (ngSubmit)="addLigne()" >
+                  <div class="form-group">
+                    <input class="form-control input-lg" type="text" style="color: black;     width: 409px;
+                    margin-left: 218px;"  placeholder="Ligne"
+                                        formControlName="nom_ligne"
+                     />
+                  </div>
+                  <div *ngIf="showMsgAddLigne" class="alert alert-success" role="alert"
+                  style="        margin-top: 10px;
+                  background-color: darkseagreen;
+                  height: 31px;
+                  width: 403px;
+                  margin-left: 221px;">
+              <p style="text-align: center ; margin-top: -8px;"> Ligne ajouter</p>  
+                </div>
+                <div *ngIf="errorMessage.show" class="alert alert-danger" role="alert"
+                  style="margin-top: 10px;
+                  background-color: rgb(202, 137, 126);
+                  height: 43px;
+                  width: 404px;
+                  margin-left: 221px;">
+               <p style="color: #FFFFFF ; margin-left: -7px; text-align: center; ">
+                {{errorMessage.msg}}
+              </p>
+                </div>
+                  <div class="form-group">
+                    <input type="submit"  class="btn btn-success btn-lg" style="margin-left: 329px;                    " value="Ajouter" />
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

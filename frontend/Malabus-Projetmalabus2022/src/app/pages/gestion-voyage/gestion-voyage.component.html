@@ -1,0 +1,109 @@
+<body>
+  <div class="content" style="    margin-left: 64px;
+">
+  <div class="row">
+      <div class="card"  style="background: #ffffff ;        ">
+
+        <div class="card-header" style="margin-top: 23px;">
+          <h4
+            class="card-title"
+            style="color: #333333; font-family: Bold; font-size: 24px"
+          >
+            Liste des voyages
+          </h4>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form">
+            <i class="fa fa-search"></i>
+            <input
+            (keyup)="search($event)"
+              type="text"
+              class="form-control form-input"
+              placeholder="Chercher un voyage"
+            />
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="    height: 340px;          ">
+            <table   class="table table-bordered table-striped mb-0">
+              <thead class="text-primary" style="background: #e3e9ef">
+                <tr>
+                  <th style="color: #b3b8bd; text-align: center">Ligne</th>
+                  <th style="color: #b3b8bd; text-align: center">
+                    Date de voyage
+                  </th>
+                  <th style="color: #b3b8bd; text-align: center">
+                    Nombre des tickets
+                  </th>
+                  <th style="color: #b3b8bd; text-align: center">
+                    Numéro de bus
+                  </th>
+                
+                  <th style="color: #b3b8bd; text-align: center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataInfovoyage; index as i">
+                  <td style="text-align: center">
+                    <p style="color: #52575d ; text-align: center;">{{ item.nom_ligne }}</p>
+                  </td>
+
+                  <td style="text-align: center">
+                    <p style="color: #52575d ; text-align: center;">{{ item.dateVoyage }}</p>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d ; text-align: center;" *ngIf="item.Nbrtickets > '0'">{{ item.Nbrtickets }}</p>
+                    <span class="badge badge-pill badge-success" style="background: rgb(219, 118, 78)
+                    " *ngIf="item.Nbrtickets == '0'">0</span>
+                  </td>
+                  <td style="text-align: center">
+                    <p style="color: #52575d ; text-align: center;">{{ item.num_bus }}</p>
+                  </td>
+
+                  <td style="text-align: center">
+                    <link
+                    rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                  />
+                  <p style="text-align: center">
+                    <a
+                    style="
+                      color: rgb(199, 99, 74);
+                      font-size: 33px;
+                      text-align: center;
+                    "
+                      (click)="deleteVoyage(item._id, i)"
+                     (click)="openSm(sup)"
+                    aria-label="Delete"
+                  >
+                    <i class="fa fa-trash-o" aria-hidden="true"   data-toggle="tooltip" data-placement="top" title="Annuler voyage"></i>
+                  </a>
+                  </p>
+                  
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<ng-template #sup let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Anulation voyage</h4>
+  </div>
+  <div class="modal-body">
+    <p>Vous étes sur d'annuler cette voyage ?</p>
+  </div>
+  <div class="modal-footer">
+    <button (click)="reloadPage()" type="submit" class="btn btn-light" style="background: #66a774" >Oui</button>
+    <button type="button" class="btn btn-light" style="background: #cc6c53" (click)="modal.close('Close click')">Non</button>
+  </div>
+</ng-template>
+</body>

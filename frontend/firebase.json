@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site":"malabus-e5890",
+    "public": "dist\\malabusWEB\\browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

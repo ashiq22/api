@@ -1,0 +1,441 @@
+<body>
+  
+  <div class="content" style="    margin-left: 64px;
+">
+  <div class="row">
+      <div class="card" style="background: #ffffff ;       ">
+
+        <div class="card-header" style="    margin-top: 23px;">
+          <h4
+            class="card-title"
+            style="color: #333333; font-family: Bold; font-size: 24px"
+          >
+            Liste des lignes
+          </h4>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form">
+            <i class="fa fa-search"></i>
+            <input
+              (keyup)="search($event)"
+              type="text"
+              class="form-control form-input"
+              placeholder="Chercher une ligne"
+            />
+          </div>
+        </div>
+        <br>
+      
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button
+            (click)="open({}, 'add')"
+              type="button"
+              style="margin-left: 18px ;"
+              class="btn btn-outline-primary"
+            >
+            <i class="bi bi-plus"></i>
+            Info ligne
+            </button>
+        
+          </div>
+        </div>
+      </div>
+
+
+
+       
+        <div class="card-body" >
+          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="    height: 340px;          ">
+            <table   class="table table-bordered table-striped mb-0">
+              <thead class="text-primary" style="background: #e3e9ef">
+                <tr>
+                  <th style="color: #b3b8bd ; text-align: center;">Ligne</th>
+
+                  <th style="color: #b3b8bd ;  text-align: center; ">Durrée(H)</th>
+                  <th style="color: #b3b8bd ;  text-align: center;">Prix(DT)</th>
+                  <th style="color: #b3b8bd ;  text-align: center;">Distance(KM)</th>
+                  <th style="color: #b3b8bd ;  text-align: center;">Numéro Bus</th>
+                  <th style="color: #b3b8bd ;  text-align: center;">Nombre des arrêts</th>
+                  <th style="color: #b3b8bd ;  text-align: center;"></th>
+                  <!--
+                                      <th style="color: #b3b8bd ;  text-align: center;">Modifier</th>
+
+                   -->
+
+
+                  <th style="color: #b3b8bd ;  text-align: center;"></th>
+                  <!--
+                  <th style="color: #b3b8bd ;  text-align: center;">Supprimer</th>
+                  -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataArray; index as i">
+                  <td style="text-align: center ;">
+                    <p style="color: #52575d ; text-align: center;">{{ item.nom_ligne }}</p>
+                  </td>
+
+                 
+                  <td style="text-align: center ;">
+                    <p style="color: #52575d ; text-align: center;">{{ item.duree }}</p>
+                  </td>
+                  <td style="text-align: center ;">
+                    <p style="color: #52575d ; text-align: center;">{{ item.prix }}</p>
+                  </td>
+                  <td style="text-align: center ;">
+                    <p style="color: #52575d ;text-align: center;">{{ item.distance }}</p>
+                  </td>
+                 
+                  <td style="text-align: center ;">
+                    <p style="color: #52575d ; text-align: center;">{{ item.num_bus }}</p>
+                  </td>
+                  <td style="text-align: center ;">
+                    <p style="color: #52575d ; text-align: center;">{{ item.arretligne.length }}</p>
+                  </td>
+                  <td style="text-align: center ;">
+                    <a
+                      (click)="openDetailleArret(content, item.arretligne)"
+                      style="color: rgb(74, 128, 199); font-size: 33px ; " 
+                    >
+                      <i class="fa fa-info" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="Détail arrêt"></i>
+                    </a>
+                  </td>
+                    <!--
+                  <td style="text-align: center ;">
+  <link
+                      rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                    />
+
+                    <a
+                      (click)="open(item, 'update')"
+                      style="background: #85c785"
+                      style="color: rgb(82, 145, 57); font-size: 33px"
+                      ><i class="fa fa-cog"></i
+                    ></a>
+                  </td>
+                    -->
+                  
+
+
+                  <td style="text-align: center ;">
+                    <a
+                      (click)="openAddvoyage(dateVoyage, item._id ,  item.nom_ligne , item.num_bus , item.arretligne)"
+                      style="color: rgb(153, 172, 206); font-size: 33px"
+                    >
+                    <i class="fa fa-plus" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="Ajouter Voyage"></i>
+                    </a>
+                  </td>
+
+                  <!--
+<td style="text-align: center ;">
+                    <a
+                      (click)="deleteligne(item._id, i)"
+                      style="color: rgb(199, 99, 74); font-size: 33px"
+                      aria-label="Delete"
+                    >
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                  -->
+
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title">Ajouter information ligne</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="ligneinfoForm">
+      <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="nom">Ligne</label>
+              <select style="color: black"
+               class="form-control" formControlName="nom_ligne">
+                <option style="color: black; margin-top: 2px;" value="" selected >
+                  Séléctionner ligne
+                </option>
+                <option
+                  class="form-control input-lg"
+                  type="text"
+                  style="color: black; width: 409px; margin-left: 218px"
+                  *ngFor="let topping of dataLigne"
+                  [value]="topping.nom_ligne"
+                >
+                  {{ topping.nom_ligne }}
+                </option>
+              </select>
+
+            </div>
+            <div class="col-md-6">
+              <label for="prenom">Arrêt </label>
+              <select 
+              class="form-control"
+              formControlName="arretligne"
+               class="selectpicker"
+              data-selected-text-format="count"
+              multiple
+            >
+              <option selected>Selectionnée les arrêts</option>
+              <option
+                *ngFor="let topping of dataArret"
+                [value]="topping._id"
+              >
+                {{ topping.nom_arret }}
+
+              </option>
+            </select>
+
+
+
+             
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="mail">Heure départ</label>
+              <input style="color: #52575d ;" formControlName="heur_dep" id="mail" class="form-control" type="text" name="" placeholder="Entrer Heure départ">
+            </div>
+            <div class="col-md-6">
+              <label for="numéro">Heure d'arrivée </label>
+              <input style="color: #52575d ;" formControlName="heur_arriv" id="numéro" class="form-control" type="text" name="" placeholder="Entrer heure d'arrivée ">
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-12">
+            <label for="adresse">Durreé de ligne</label>
+            <input style="color: #52575d ;" formControlName="duree"  id="adresse" class="form-control" type="text" name="" placeholder="Entrer durreé">
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-12">
+          <label for="adresse">Distance</label>
+          <input style="color: #52575d ;" formControlName="distance"  id="adresse" class="form-control" type="text" name="" placeholder="Entrer distance de ligne">
+        </div>
+      </div>
+  </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="mail">Prix de ligne</label>
+            <input style="color: #52575d ;" formControlName="prix" id="mail" class="form-control" type="text" name="" placeholder="Entrer Prix de ligne ">
+          </div>
+          <div class="col-md-6">
+            <label for="numéro">Nombre de places </label>
+            <input style="color: #52575d ;" formControlName="nbr_place" id="numéro" class="form-control" type="number" name="" placeholder="Entrer nombre de places">
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-12">
+          <label for="adresse">Numéro de bus</label>
+          <input style="color: #52575d ;" formControlName="num_bus" id="adresse" class="form-control" type="text" name="" placeholder="Entrer numéro de bus">
+        </div>
+      </div>
+  </div>
+   
+      <button type="submit" style="margin-left: 150px;" class="btn btn-outline-dark">Sauvegarder</button>
+    </form>
+
+
+  </div>
+ 
+</ng-template>
+
+
+
+<ng-template #mymodalupdate let-modal>
+  <div class="modal-header" >
+    <h4 class="modal-title" id="modal-basic-title">Modifier information ligne</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--
+  <div class="modal-body">
+    <form  name="form" #f="ngForm" (ngSubmit)="updateligne(f)">
+      <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="nom">Ligne</label>
+              <input id="nom" class="form-control"
+               type="text" name=""
+                placeholder="Entrer votre ligne">
+            </div>
+            <div class="col-md-6">
+              <label for="prenom">Arrêt </label>
+              <input id="prenom" class="form-control" type="text" name="" placeholder="Séléctionner Arrêt ">
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="mail">Heure départ</label>
+<input id="mail" class="form-control"
+type="text"
+name="heur_dep"
+id="heur_dep"
+class="form-control" 
+[(ngModel)]="form.heur_dep"
+               >
+            </div>
+            <div class="col-md-6">
+              <label for="numéro">Heure d'arrivée </label>
+              <input id="numéro" class="form-control" type="text" name="" placeholder="Entrer heure d'arrivée ">
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-12">
+            <label for="adresse">Durreé de ligne</label>
+            <input id="adresse" class="form-control" type="text" name="" placeholder="Entrer durreé">
+          </div>
+        </div>
+    </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="mail">Prix de ligne</label>
+            <input id="mail" class="form-control" type="text" name="" placeholder="Entrer Prix de ligne ">
+          </div>
+          <div class="col-md-6">
+            <label for="numéro">Nombre de places </label>
+            <input id="numéro" class="form-control" type="number" name="" placeholder="Entrer nombre de places">
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-12">
+          <label for="adresse">Numéro de bus</label>
+          <input id="adresse" class="form-control" type="text" name="" placeholder="Entrer numéro de bus">
+        </div>
+      </div>
+  </div>
+   
+      <button type="submit" style="margin-left: 150px;" class="btn btn-outline-dark">Modifier</button>
+    </form>
+
+
+  </div>
+
+  -->
+
+ 
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Détails arrêts</h4>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <div class="table-wrapper-scroll-y my-custom-scrollbar" >
+        <table class="table table-bordered table-striped mb-0" >
+          <thead class="text-primary" style="background: #e3e9ef">
+            <tr>
+              <th style="color: #1d8cf8;  text-align: center; width: 100px">Arret</th>
+              <th style="color: #1d8cf8 ; text-align: center;">Départ</th>
+              <th style="color: #1d8cf8 ;  text-align: center;"> Arrivé</th>
+              <th style="color: #1d8cf8 ;  text-align: center;">Distance</th>
+              <th style="color: #1d8cf8 ;  text-align: center;">prix</th>
+              <th style="color: #1d8cf8 ; text-align: center;">Depart retour</th>
+              <th style="color: #1d8cf8 ;  text-align: center;">Arrivé retour</th>
+              <th style="color: #1d8cf8 ; text-align: center;">Duré </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dataArretDetails; index as i">
+              <td>
+                <p style="color: #52575d">{{ item.nom_arret }}</p>
+              </td>
+
+              <td>
+                <p style="color: #52575d">{{ item.heure_depart }}</p>
+              </td>
+              <td>
+                <p style="color: #52575d">{{ item.heure_arrive }}</p>
+              </td>
+              <td>
+                <p style="color: #52575d">{{ item.distance }}</p>
+              </td>
+              <td>
+                <p style="color: #52575d">{{ item.prix }}</p>
+              </td>
+             
+              <td>
+                <p style="color: #52575d">{{ item.heure_depart_retour }}</p>
+              </td>
+              <td>
+                <p style="color: #52575d">{{ item.heure_depart_arrive }}</p>
+              </td>
+
+              <td>
+                <p style="color: #52575d">5 minute</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!--
+  add date voyage
+-->
+<ng-template #dateVoyage let-modal>
+  <div class="modal-header">
+    <h4 style="margin-left: 165px" class="modal-title" id="modal-basic-title">Ajouter voyage</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addDateForm">
+      <div class="mb-3">
+        <label for="dateOfBirth">Date voyage</label>
+        <div class="input-group">
+          <input style="color: #52575d ; border-left: inset; border-right: inset;" 
+          formControlName="dateVoyage"
+          type="date" class="form-control" placeholder="yyyy-mm-dd"  >
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="dateOfBirth">Nombre de tickets</label>
+        <div class="input-group">
+          <input style="color: #52575d ; border-left: inset; border-right: inset;" 
+          formControlName="Nbrtickets"
+          type="number" class="form-control" placeholder="nombre de tickets">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" 
+    (click)="addDateticketVoyageFunction()"
+     class="btn btn-outline-dark" (click)="modal.close('Save click')">Ajouter</button>
+  </div>
+</ng-template>
+
+</body>

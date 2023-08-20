@@ -1,0 +1,2743 @@
+<!--home-->
+
+<div class="page1" *ngIf="page1" style="overflow: hidden">
+  <div class="container">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="#home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#about">Que faison-nous?</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#service">Caractéristique</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#TechnoGm">TechnoGm</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="#Partenaires">Partenaires</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div class="d-flex">
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-success" ngbDropdownToggle>
+                      Connexion
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(content)"
+                      >
+                        <i
+                          class="bi bi-person-bounding-box"
+                          style="color: green"
+                        ></i>
+
+                        Voyageur
+                      </button>
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(contentAgence)"
+                      >
+                        <i class="bi bi-bank" style="color: green"></i>
+
+                        Agence
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+          style="position: relative"
+        >
+          <h3 class="h3-v div75">Sélectionner L’itinéraire</h3>
+          <h3 class="h3-v2 div75">Trouvez Votre Destination</h3>
+          <div class="DatesRes">
+            <form [formGroup]="searchTicket" (ngSubmit)="searchTicketenligne()">
+              <div class="input-group mb-3">
+                <input
+                  (keyup)="search($event)"
+                  type="text"
+                  placeholder="De"
+                  class="form-control"
+                  matInput
+                  formControlName="arretDepart"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let item of dataArret"
+                    [value]="item.nom_arret"
+                  >
+                    {{ item.nom_arret }}
+                  </mat-option>
+                </mat-autocomplete>
+
+                <span class="input-group-text">
+                  <div class="mytransport">
+                    <i class="fa fa-long-arrow-down" aria-hidden="true"></i>
+                    <i class="fa fa-long-arrow-up" aria-hidden="true"></i>
+                  </div>
+                </span>
+                <input
+                  (keyup)="search($event)"
+                  type="text"
+                  placeholder="Vers"
+                  aria-label="Number"
+                  class="form-control"
+                  matInput
+                  formControlName="arretArrive"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of dataArret">
+                    {{ item.nom_arret }}
+                  </mat-option>
+                </mat-autocomplete>
+
+                <span
+                  class="input-group-text"
+                  style="background: transparent; border-color: transparent"
+                >
+                  <i
+                    class="fa fa-clock-o"
+                    aria-hidden="true"
+                    style="color: white"
+                  ></i>
+                </span>
+                <input
+                  type="date"
+                  style="border-radius: 0px"
+                  class="form-control"
+                  formControlName="dateVoyage"
+                />
+
+                <span
+                  class="input-group-text"
+                  style="background: transparent; border-color: transparent"
+                >
+                </span>
+                <div class="col-md-2">
+                  <button
+                    type="submit"
+                    (click)="showText()"
+                    class="read_btstore"
+                    style="background-color: #00e1b5"
+                  >
+                    Rechercher
+                  </button>
+                </div>
+              </div>
+              <div
+                class="shadow-lg p-1 mb-5 bg-white rounded tab"
+                style="
+                  max-width: auto;
+                  position: absolute;
+                  font-size: larger;
+                  text-align-last: justify;
+                "
+                *ngFor="let item of dataRecherche"
+              >
+                &nbsp; {{ item.heurDepart }} &nbsp;
+                {{ item.arretDepart }} &nbsp;
+                <img src="../../assets/images/icon.PNG" alt="" /> &nbsp;
+                {{ item.heurArrive }} &nbsp; {{ item.arretArrive }} &nbsp;
+                <img
+                  src="{{ item.imagePath }}"
+                  style="width: 4%"
+                  alt=""
+                  alt=""
+                />
+                &nbsp; <b>Ligne:</b> &nbsp;{{ item.nomLigne }} &nbsp;
+                {{ item.prix }}DT &nbsp; Ticket disponible:
+                {{ item.Nbrtickets }} &nbsp; &nbsp;
+               
+             
+              <button
+               
+                class="btn btn-primary"
+                (click)="openresr(contentres)"
+                style="background: #0f5132; border-color: #0f5132"
+              >
+                Réserver
+              </button>
+              </div>
+            </form>
+
+            <div class="row">
+              <div
+                class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+              >
+                <p class="titrex-p div75" *ngIf="textlang">
+                  Téléchargez L’application Pour Reserver Et Payer En Ligne
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Mydiv75">
+        <div class="row">
+          <div class="col-lg-3 bgH" *ngIf="imagelan"></div>
+          <div class="col-md-9 MyText" *ngIf="textlang">
+            <p class="pMyText">
+              <span class="h2MyText">
+                <span class="FontMallaBus">MalaBus</span>
+                l’expérience d’un déplacement interurbain rapide, pratique et
+                sûr.</span
+              >
+            </p>
+            <span class="pMyText">
+              Le voyageur peut réserver et payer son ticket de transport
+              directement via son smartphone et avoir une idée sur les
+              disponibilités, les horaires et le prix de chaque voyage, ainsi
+              que l’itinéraire à suivre pour arriver à sa destination en
+              utilisant Google Maps.</span
+            >
+
+            <br />
+            <br />
+
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <button type="button" class="read_btstore">
+                  <img src="/assets/images/AppStore.png" class="store1" />
+
+                  Obtenir sur AppStore
+                </button>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="read_btstore">
+                  <img src="/assets/images/PlayStore.png" class="store1" />
+                  Obtenir sur PlayStore
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal form agence -->
+<ng-template #contentAgence let-modal>
+  <div class="modal-body">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Connexion</a>
+        <ng-template ngbNavContent>
+          <form
+            class="form"
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmitagence()"
+            ngForm
+            #f="ngForm"
+          >
+            <div class="text-center mb-3">
+              <img src="../../assets/images/malabusLogin.png" alt="Avatar" />
+            </div>
+            <div class="connexion">Connexion</div>
+            <!-- Email input -->
+            <div class="form-outline mb-4 inputemail">
+              <input
+                type="text"
+                class="form-control"
+                name="credentels"
+                [(ngModel)]="form.credentels"
+                #credentels="ngModel"
+                placeholder="Saisir votre e-mail ou username"
+              />
+            </div>
+            <!-- Password input -->
+            <div class="form-outline mb-4 inputpassword">
+              <div class="col-auto">
+                <div class="input-group">
+                  <div
+                    class="input-group-text"
+                    style="background-color: rgb(228, 220, 220)"
+                  >
+                    <a (click)="showHidePassword()">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                  </div>
+                  <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    name="password"
+                    [(ngModel)]="form.password"
+                    #password="ngModel"
+                    class="form-control"
+                    id="autoSizingInputGroup"
+                    placeholder="Saisir votre mot de passe"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-outline mb-4 inputpassword">
+              <a
+                routerLink="/forgetpasswordagence"
+                (click)="modal.close('Save click')"
+                >Mot de passe oubliée ?</a
+              >
+            </div>
+            <div
+              *ngIf="errorMessage.show"
+              class="alert alert-danger"
+              role="alert"
+              style="
+                width: 330px;
+                margin-left: 68px;
+                height: 55px;
+                text-align: center;
+              "
+            >
+              {{ errorMessage.msg }}
+            </div>
+            <div class="form-outline mb-4 inputpassword">
+              <button
+                type="submit"
+                class="btn btn-primary btn-cnx"
+                style="width: 330px"
+              >
+                Connexion
+              </button>
+            </div>
+
+            <div class="text-center"></div>
+          </form>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Inscription</a>
+        <ng-template ngbNavContent>
+          <p class="Inscriver" style="text-align: center">
+            Inscrivez-vous pour continuer
+          </p>
+          <button
+            style="color: white; color: white; width: 360px; margin-left: 57px"
+            class="btn btn-info"
+            (click)="toggleShow()"
+          >
+            Informations générales
+            <i class="bi bi-arrow-down-circle" style="margin-left: 6px"></i>
+          </button>
+          <br />
+          <br />
+
+          <form [formGroup]="agenceForm" (ngSubmit)="addAgence()">
+            <div *ngIf="isShown">
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    [ngClass]="{
+                      'is-invalid':
+                        nameagency.invalid &&
+                        (nameagency.dirty || nameagency.touched)
+                    }"
+                    type="text"
+                    id="form3Example1c"
+                    style="margin-top: 15px"
+                    class="form-control"
+                    placeholder="Nom agence"
+                    formControlName="nameagency"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      nameagency.invalid &&
+                      (nameagency.dirty || nameagency.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="nameagency.errors?.['required']"
+                      >Nom d'agence obligatoire</span
+                    >
+                    <span
+                      class="spanEroor"
+                      *ngIf="nameagency.errors?.['pattern']"
+                      >Nom d'agnce doit étre alphabétique</span
+                    ><br />
+                    <span
+                      class="spanEroor"
+                      *ngIf="nameagency.errors?.['length']"
+                      >Nom d'agnce contient au minimum 2 caractéres
+                    </span>
+                  </div>
+                  <!--
+                     <div *ngIf="errorMessage.show">
+                    <span
+                      style="margin-left: 61px; color: #df6060"
+                      class="spanEroor"
+                      >Agence déja inscrit</span
+                    >
+                  </div>
+                  -->
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    [ngClass]="{
+                      'is-invalid':
+                        matricule.invalid &&
+                        (matricule.dirty || matricule.touched)
+                    }"
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Matricule"
+                    formControlName="matricule"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      matricule.invalid &&
+                      (matricule.dirty || matricule.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="matricule.errors?.['required']"
+                      >Matricule obligatoire</span
+                    >
+                    <span class="spanEroor" *ngIf="matricule.errors?.['matr']"
+                      >Matricule doit étre 7 chiffres et une letrre majuscule a
+                      la fin</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    [ngClass]="{
+                      'is-invalid':
+                        num_cnss.invalid && (num_cnss.dirty || num_cnss.touched)
+                    }"
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="N°_CNSS"
+                    formControlName="num_cnss"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      num_cnss.invalid && (num_cnss.dirty || num_cnss.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="num_cnss.errors?.['required']"
+                      >Matricule obligatoire</span
+                    >
+                    <span class="spanEroor" *ngIf="num_cnss.errors?.['cnss']">
+                      Numéro de cnss doit avoir 7 chiffres
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    [ngClass]="{
+                      'is-invalid':
+                        email.invalid && (email.dirty || email.touched)
+                    }"
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Email Agence"
+                    formControlName="email"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="email.invalid && (email.dirty || email.touched)"
+                  >
+                    <span class="spanEroor" *ngIf="email.errors?.['required']"
+                      >Email obligatoire</span
+                    >
+                    <span class="spanEroor" *ngIf="email.errors?.['email']"
+                      >Email incorrect</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    [ngClass]="{
+                      'is-invalid':
+                        telAgence.invalid &&
+                        (telAgence.dirty || telAgence.touched)
+                    }"
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Num tel agence"
+                    formControlName="telAgence"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      telAgence.invalid &&
+                      (telAgence.dirty || telAgence.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="telAgence.errors?.['required']"
+                      >Numéro de téléphone obligatoire</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <select
+                    [ngClass]="{
+                      'is-invalid':
+                        business_sector.invalid &&
+                        (business_sector.dirty || business_sector.touched)
+                    }"
+                    id="form3Example1c"
+                    class="form-select"
+                    aria-label="Default select example"
+                    formControlName="business_sector"
+                  >
+                    <option value="" selected disabled>
+                      Secteur d'activité
+                    </option>
+                    <option value="Transport terrestre routier international">
+                      Transport terrestre routier international
+                    </option>
+                    <option value="Transport terrestre routier de marchandises">
+                      Transport terrestre routier de marchandises
+                    </option>
+                    <option value="Transport collectif de personnes">
+                      Transport collectif de personnes
+                    </option>
+                    <option value="Transport ferroviaire">
+                      Transport ferroviaire
+                    </option>
+                  </select>
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      business_sector.invalid &&
+                      (business_sector.dirty || business_sector.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="business_sector.errors?.['required']"
+                      >Legal status obligatoire</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <select
+                    [ngClass]="{
+                      'is-invalid':
+                        legal_status.invalid &&
+                        (legal_status.dirty || legal_status.touched)
+                    }"
+                    id="form3Example1c"
+                    formControlName="legal_status"
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>Statut juridique</option>
+                    <option value="SARL">SARL</option>
+                    <option value="SURL">SURL</option>
+                    <option value="SAS">SAS</option>
+                    <option value="SA">SA</option>
+                    <option value="Autre">Autre</option>
+                  </select>
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      legal_status.invalid &&
+                      (legal_status.dirty || legal_status.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="legal_status.errors?.['required']"
+                      >Legal status obligatoire</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              (click)="toggleShowAdresse()"
+              type="button"
+              class="btn btn-info"
+              style="
+                color: white;
+                color: white;
+                width: 360px;
+                margin-left: 57px;
+              "
+            >
+              Adresse agence
+              <i class="bi bi-arrow-down-circle" style="margin-left: 55px"></i>
+            </button>
+            <br />
+
+            <input
+              class="form-control"
+              id="form3Example1c"
+              *ngIf="isShownadresse"
+              style="margin-top: 15px"
+              formControlName="adressAgencce"
+              [ngClass]="{
+                'is-invalid':
+                  adressAgencce.invalid &&
+                  (adressAgencce.dirty || adressAgencce.touched)
+              }"
+              type="text"
+              placeholder="Adresse Agence"
+            />
+            <div
+              class="invalid-feedback"
+              role="alert"
+              *ngIf="
+                adressAgencce.invalid &&
+                (adressAgencce.dirty || adressAgencce.touched)
+              "
+            >
+              <span class="spanEroor" *ngIf="adressAgencce.errors?.['required']"
+                >Adresse agence obligatoire</span
+              >
+            </div>
+            <br />
+
+            <div class="row" *ngIf="isShownadresse">
+              <div class="col-sm">
+                <div>
+                  <input
+                    type="number"
+                    style="width: 143px"
+                    class="form-control"
+                    id="codePostal"
+                    placeholder="Code postal"
+                    formControlName="postalCodeagence"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <select
+                  formControlName="villeAgence"
+                  class="form-select"
+                  id="selactPays"
+                  aria-label="Default select example"
+                  style="width: 143px; margin-left: 29px"
+                >
+                  <option value="" selected disabled>Ville</option>
+                  <option value="Ariana">Ariana</option>
+                  <option value="Béja">Béja</option>
+                  <option value="Ben Arous">Ben Arous</option>
+                  <option value="Bizerte">Bizerte</option>
+                  <option value="Gabès">Gabès</option>
+                  <option value="Gafsa">Gafsa</option>
+                  <option value="Jendouba">Jendouba</option>
+                  <option value="Kairouan">Kairouan</option>
+                  <option value="Sbeïtla">Sbeïtla</option>
+                  <option value="Kébili">Kébili</option>
+                  <option value="Le Kef">Le Kef</option>
+                  <option value="Mahdia">Mahdia</option>
+                  <option value="La Manouba">La Manouba</option>
+                  <option value="	Médenine">Médenine</option>
+                  <option value="Nabeul">Nabeul</option>
+                  <option value="Sfax">Sfax</option>
+                  <option value="Sidi Bouzid">Sidi Bouzid</option>
+                  <option value="Siliana">Siliana</option>
+                  <option value="Sousse">Sousse</option>
+                  <option value="Tataouine">Tataouine</option>
+                  <option value="Tozeur">Tozeur</option>
+                  <option value="Tunis">Tunis</option>
+                  <option value="Zaghouan">Zaghouan</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              (click)="toggleShowContact()"
+              type="button"
+              class="btn btn-info"
+              style="
+                color: white;
+                color: white;
+                width: 360px;
+                margin-left: 57px;
+              "
+            >
+              Personne à contacter
+              <i class="bi bi-arrow-down-circle" style="margin-left: 18px"></i>
+            </button>
+
+            <input
+              class="form-control"
+              id="form3Example1c"
+              *ngIf="isShownContact"
+              style="margin-top: 15px"
+              formControlName="nompersonneContact"
+              [ngClass]="{
+                'is-invalid':
+                  nompersonneContact.invalid &&
+                  (nompersonneContact.dirty || nompersonneContact.touched)
+              }"
+              type="text"
+              placeholder="Nom personne à contacter"
+            />
+            <div
+              class="invalid-feedback"
+              role="alert"
+              *ngIf="
+                nompersonneContact.invalid &&
+                (nompersonneContact.dirty || nompersonneContact.touched)
+              "
+            >
+              <span
+                class="spanEroor"
+                *ngIf="nompersonneContact.errors?.['required']"
+                >Nom personne à contacter est obligatoire</span
+              >
+            </div>
+            <br />
+            <input
+              class="form-control"
+              id="form3Example1c"
+              *ngIf="isShownContact"
+              formControlName="prenomersonneContact"
+              [ngClass]="{
+                'is-invalid':
+                  prenomersonneContact.invalid &&
+                  (prenomersonneContact.dirty || prenomersonneContact.touched)
+              }"
+              type="text"
+              placeholder="Prénom personne à contacter"
+            />
+            <div
+              class="invalid-feedback"
+              role="alert"
+              *ngIf="
+                prenomersonneContact.invalid &&
+                (prenomersonneContact.dirty || prenomersonneContact.touched)
+              "
+            >
+              <span
+                class="spanEroor"
+                *ngIf="prenomersonneContact.errors?.['required']"
+                >Prénom personne à contacter est obligatoire</span
+              >
+            </div>
+            <br />
+            <input
+              class="form-control"
+              id="form3Example1c"
+              *ngIf="isShownContact"
+              [ngClass]="{
+                'is-invalid':
+                  telpesContact.invalid &&
+                  (telpesContact.dirty || telpesContact.touched)
+              }"
+              type="text"
+              placeholder="Num tel personne à contacter"
+              formControlName="telpesContact"
+            />
+            <div
+              class="invalid-feedback"
+              role="alert"
+              *ngIf="
+                telpesContact.invalid &&
+                (telpesContact.dirty || telpesContact.touched)
+              "
+            >
+              <span class="spanEroor" *ngIf="telpesContact.errors?.['required']"
+                >Numéro du téléphone personne à contacter est obligatoire</span
+              >
+            </div>
+            <br />
+            <div
+              *ngIf="showMsgAddagency"
+              class="alert alert-success"
+              role="alert"
+              style="width: 358px; margin-left: 57px"
+            >
+              Votre compte a été ajouté avec succès Vous devez attendre
+              l'acceptation par l'administrateur
+            </div>
+
+            <div
+              *ngIf="errorMessage.show"
+              class="alert alert-danger"
+              role="alert"
+            >
+              Agence déja inscrit!
+            </div>
+            <div
+              class="d-flex justify-content-center mx-4 mb-3 mb-lg-2"
+              *ngIf="isShownContact"
+            >
+              <button type="submit" class="btn btn-primary">Inscription</button>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</ng-template>
+<!--Modal form user -->
+<ng-template #content let-modal>
+  <div class="modal-body">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Connexion</a>
+        <ng-template ngbNavContent>
+          <form
+            class="form"
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            ngForm
+            #f="ngForm"
+          >
+            <div class="text-center mb-3">
+              <img src="../../assets/images/malabusLogin.png" alt="Avatar" />
+            </div>
+            <div class="connexion">Connexion</div>
+            <!-- Email input -->
+            <div class="form-outline mb-4 inputemail">
+              <input
+                type="text"
+                class="form-control"
+                name="credentels"
+                [(ngModel)]="form.credentels"
+                #credentels="ngModel"
+                placeholder="Saisir votre e-mail ou username"
+              />
+            </div>
+            <!-- Password input -->
+            <div class="form-outline mb-4 inputpassword">
+              <div class="col-auto">
+                <div class="input-group">
+                  <div
+                    class="input-group-text"
+                    style="background-color: rgb(228, 220, 220)"
+                  >
+                    <a (click)="showHidePassword()">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                  </div>
+                  <input
+                    type="password"
+                    [type]="showPassword ? 'text' : 'password'"
+                    name="password"
+                    [(ngModel)]="form.password"
+                    #password="ngModel"
+                    class="form-control"
+                    id="autoSizingInputGroup"
+                    placeholder="Saisir votre mot de passe"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-outline mb-4 inputpassword">
+              <a
+                routerLink="/forgetpassword"
+                (click)="modal.close('Save click')"
+                >Mot de passe oubliée ?</a
+              >
+            </div>
+            <div
+              *ngIf="errorMessage.show"
+              class="alert alert-danger"
+              role="alert"
+              style="
+                width: 330px;
+                margin-left: 68px;
+                height: 55px;
+                text-align: center;
+              "
+            >
+              {{ errorMessage.msg }}
+            </div>
+            <div class="form-outline mb-4 inputpassword">
+              <button
+                type="submit"
+                class="btn btn-primary btn-cnx"
+                style="width: 330px"
+              >
+                Connexion
+              </button>
+            </div>
+
+            <hr />
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+             
+                <button
+                  href="#"
+                  style="float: right ;"
+                  class="btn btn-outline-primary facebook"
+                  (click)="signInWithFB()"
+                >
+                  <i class="bi bi-facebook"></i>
+                  &ensp; &nbsp; &nbsp;
+                  <span>Connecter</span>
+                </button>
+              </div>
+              <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                <button
+                  href="#"
+                  class="btn btn-outline-danger facebook"
+                  (click)="signInHandler()"
+                >
+                  <i class="bi bi-google"></i>
+                  &ensp; &nbsp; &nbsp;
+                  <span>Connecter</span>
+                </button>
+              </div>
+            </div>
+            <div class="text-center"></div>
+          </form>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Inscription</a>
+        <ng-template ngbNavContent>
+          <div class="text-center mb-3">
+            <img src="../../assets/images/malabusLogin.png" alt="Avatar" />
+          </div>
+          <div class="connexion">Inscription</div>
+          <!-- form inscrit utilisateur-->
+          <div class="card">
+            <div class="card-body" style="margin-left: 146px">
+              Inscription Utilisateur
+            </div>
+            <p class="Inscriver" style="text-align: center">
+              Inscrivez-vous pour continuer
+            </p>
+            <form
+              [formGroup]="voyageurForm"
+              (ngSubmit)="addUser()"
+              *ngIf="!showMsgAddUser"
+            >
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Nom"
+                    formControlName="fname"
+                    [ngClass]="{
+                      'is-invalid':
+                        fname.invalid && (fname.dirty || fname.touched)
+                    }"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="fname.invalid && (fname.dirty || fname.touched)"
+                  >
+                    <span class="spanEroor" *ngIf="fname.errors?.['required']"
+                      >Votre nom est obligatoire</span
+                    >
+                    <span
+                    class="spanEroor"
+                    *ngIf="fname.errors?.['length'];"
+                  >
+                    votre nom doit avoir au minimum 3 caractéres
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Prénom"
+                    formControlName="lname"
+                    [ngClass]="{
+                      'is-invalid':
+                        lname.invalid && (lname.dirty || lname.touched)
+                    }"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="lname.invalid && (lname.dirty || lname.touched)"
+                  >
+                    <span class="spanEroor" *ngIf="lname.errors?.['required']"
+                      >Votre prénom est obligatoire</span
+                    >
+                    <span
+                    class="spanEroor"
+                    *ngIf="lname.errors?.['length'];"
+                  >
+                    votre prénom doit avoir au minimum 3 caractéres
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Username"
+                    formControlName="username"
+                    [ngClass]="{
+                      'is-invalid':
+                        username.invalid && (username.dirty || username.touched)
+                    }"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      username.invalid && (username.dirty || username.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="username.errors?.['required']"
+                      >Username d'utilisateur est obligatoire</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    placeholder="Select date"
+                    type="date"
+                    id="form3Example1c"
+                    class="form-control"
+                    formControlName="birthday"
+                    [ngClass]="{
+                      'is-invalid':
+                        birthday.invalid && (birthday.dirty || birthday.touched)
+                    }"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      birthday.invalid && (birthday.dirty || birthday.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="birthday.errors?.['required']"
+                      >Votre date d'anniversaire est obligatoire</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    type="number"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="N°de téléphone"
+                    formControlName="phoneNum"
+                    [ngClass]="{
+                      'is-invalid':
+                        phoneNum.invalid && (phoneNum.dirty || phoneNum.touched)
+                    }"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      phoneNum.invalid && (phoneNum.dirty || phoneNum.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="phoneNum.errors?.['required']"
+                      >Votre numéro de téléphone est obligatoire</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Email"
+                    formControlName="email"
+                    [ngClass]="{
+                      'is-invalid':
+                        emailuser.invalid &&
+                        (emailuser.dirty || emailuser.touched)
+                    }"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      emailuser.invalid &&
+                      (emailuser.dirty || emailuser.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="emailuser.errors?.['required']"
+                      >Votre email est obligatoire</span
+                    >
+                  </div>
+                  <span
+                    style="color: #df6060"
+                    class="spanEroor"
+                    *ngIf="emailuser.errors?.['email']"
+                  >
+                    Saisi une adresse e-mail valide.
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <div
+                  class="input-group"
+                  style="margin-left: 54px; width: 363px"
+                >
+                  <div
+                    class="input-group-text"
+                    style="background-color: rgb(228, 220, 220)"
+                  >
+                    <a (click)="showHidePassword()">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                  </div>
+                  <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="Mot de passe"
+                    formControlName="password"
+                    [ngClass]="{
+                      'is-invalid':
+                        password.invalid && (password.dirty || password.touched)
+                    }"
+                    required
+                  />
+                  <div class="invalid-feedback" role="alert">
+                    <span
+                      class="spanEroor"
+                      *ngIf="password.errors?.['required']"
+                      >Votre mot de passe est obligatoire</span
+                    >
+                    <br />
+                    <span
+                      class="spanEroor"
+                      *ngIf="password.errors?.['length'];else falseLength"
+                    >
+                      Mot de passe doit étre supérieur a 8 caractéres
+                    </span>
+                    <ng-template #falseLength class="valid-feedback">
+                      <span class="spanEroor" style="color: rgb(94, 168, 94)">
+                        Mot de passe est supérieur a 8 caractéres
+                      </span>
+                    </ng-template>
+                    <br />
+                    <span
+                      class="spanEroor"
+                      *ngIf="password.errors?.['test'] ; else falseMajius"
+                    >
+                      Mot de passe doit avoir une caractére majuscule</span
+                    >
+                    <ng-template #falseMajius class="valid-feedback">
+                      <span class="spanEroor" style="color: rgb(94, 168, 94)">
+                        Mot de passe contient un caractére majuscule
+                      </span>
+                    </ng-template>
+                    <br />
+                    <span
+                      class="spanEroor"
+                      *ngIf="password.errors?.['lower'] ; else falseMinus"
+                      >Mot de passe doit avoir une caractére miniscule</span
+                    >
+                    <ng-template #falseMinus class="valid-feedback">
+                      <span class="spanEroor" style="color: rgb(94, 168, 94)">
+                        Mot de passe contient un caractére minuscule
+                      </span>
+                    </ng-template>
+                    <br />
+                    <span
+                      class="spanEroor"
+                      *ngIf="password.errors?.['special'] ; else falseSpec"
+                    >
+                      Mot de passe doit avoir un caractére spéciaux
+                    </span>
+                    <ng-template #falseSpec class="valid-feedback">
+                      <span class="spanEroor" style="color: rgb(94, 168, 94)">
+                        Mot de passe contient un caractére spéciaux
+                      </span>
+                    </ng-template>
+                    <br />
+                    <span
+                      class="spanEroor"
+                      *ngIf="password.errors?.['num'] ; else falseDegit"
+                    >
+                      Mot de passe doit avoir seulement 2 chiffres
+                    </span>
+                    <ng-template #falseDegit class="valid-feedback">
+                      <span class="spanEroor" style="color: rgb(94, 168, 94)">
+                        Mot de passe contient deux chiffres
+                      </span>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0"></div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <select
+                    formControlName="job"
+                    id="form3Example1c"
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>Fonction</option>
+                    <option value="étudiant">étudiant</option>
+                    <option value="Employé">Employé</option>
+                    <option value="Chômeur">Chômeur</option>
+                    <option value="Retraité">Retraité</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <select
+                    formControlName="civility"
+                    id="form3Example1c"
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>Civilité</option>
+                    <option value="Mlle">Mlle</option>
+                    <option value="Madame">Madame</option>
+                    <option value="Monsieur">Monsieur</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <input
+                    type="text"
+                    id="form3Example1c"
+                    class="form-control"
+                    placeholder="Adresse"
+                    formControlName="address"
+                    [ngClass]="{
+                      'is-invalid':
+                        address.invalid && (address.dirty || address.touched)
+                    }"
+                    required
+                  />
+                  <div
+                    class="invalid-feedback"
+                    role="alert"
+                    *ngIf="
+                      address.invalid && (address.dirty || address.touched)
+                    "
+                  >
+                    <span
+                      class="spanEroor"
+                      *ngIf="password.errors?.['required']"
+                      >Votre adresse est obligatoire</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="codePostal"
+                      placeholder="Code postal"
+                      formControlName="postalCode"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <select
+                    formControlName="city"
+                    class="form-select"
+                    id="selactPays"
+                    aria-label="Default select example"
+                  >
+                    <option value="" selected disabled>Ville</option>
+                    <option value="Ariana">Ariana</option>
+                    <option value="Béja">Béja</option>
+                    <option value="Ben Arous">Ben Arous</option>
+                    <option value="Bizerte">Bizerte</option>
+                    <option value="Gabès">Gabès</option>
+                    <option value="Gafsa">Gafsa</option>
+                    <option value="Jendouba">Jendouba</option>
+                    <option value="Kairouan">Kairouan</option>
+                    <option value="Sbeïtla">Sbeïtla</option>
+                    <option value="Kébili">Kébili</option>
+                    <option value="Le Kef">Le Kef</option>
+                    <option value="Mahdia">Mahdia</option>
+                    <option value="La Manouba">La Manouba</option>
+                    <option value="	Médenine">Médenine</option>
+                    <option value="Nabeul">Nabeul</option>
+                    <option value="Sfax">Sfax</option>
+                    <option value="Sidi Bouzid">Sidi Bouzid</option>
+                    <option value="Siliana">Siliana</option>
+                    <option value="Sousse">Sousse</option>
+                    <option value="Tataouine">Tataouine</option>
+                    <option value="Tozeur">Tozeur</option>
+                    <option value="Tunis">Tunis</option>
+                    <option value="Zaghouan">Zaghouan</option>
+                  </select>
+                </div>
+              </div>
+              <div
+              *ngIf="errorMessage.show"
+              class="alert alert-danger"
+              role="alert"
+              style="width: 358px; margin-left: 57px"
+            >
+            {{errorMessage.msg}}
+     
+            </div>
+
+              <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-lg"
+                  style="
+                    margin-left: -4px;
+                    width: 143px;
+                    background-color: #00e1bf;
+                    border-color: #00e1bf;
+                  "
+                >
+                  Inscription
+                </button>
+              </div>
+            </form>
+         
+            <div
+              *ngIf="showMsgAddUser"
+              class="alert alert-success"
+              role="alert"
+              style="width: 358px; margin-left: 57px"
+            >
+              Votre compte a été ajouté avec succès Vous devez consulter votre
+              boîte email pour la confirmation
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</ng-template>
+
+<!--info-->
+<div class="page2 my-5" *ngIf="page2">
+  <div id="about" class="container">
+    <h2 class="choose_text">Que faison-nous?</h2>
+    <p class="lorem_text">Comment cette application peut vous aider</p>
+
+    <div id="test1" class="container">
+      <div class="row">
+        <div class="col-sm-4 mb-4">
+          <div class="power">
+            <div class="icon">
+              <img src="/assets/images/Recherche.png" class="imgapp" />
+            </div>
+            <h2 class="totaly_text">Recherche</h2>
+            <p class="making">
+              Pas besoin de chercher un point de vente et perdre votre temps,
+              trouvez votre destination et l’horaire qui vous convient
+              facilement via votre smartphone.
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-4">
+          <div class="power">
+            <div class="icon">
+              <img src="/assets/images/Paiement.png" class="imgapp" />
+            </div>
+            <h2 class="totaly_text">Paiement sécurisé</h2>
+            <p class="making">
+              Pas besoin de se déplacer pour acheter votre ticket, payez en
+              toute sécurité par votre carte bancaire ou avec les services
+              MobiNet.
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4 mb-4">
+          <div class="power">
+            <div class="icon">
+              <img src="/assets/images/Suivi.png" class="imgapp" />
+            </div>
+            <h2 class="totaly_text">Suivi en temps réel</h2>
+            <p class="making">
+              MalaBus permet aux voyageurs de suivre en temps réel le trajet de
+              leur bus, de le localiser et de prévoir son arrivée à l’arrêt de
+              leur choix en toute tranquillité.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--services-->
+<div class="page3" *ngIf="page3">
+  <div id="service" class="container">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <h2 class="choose_text1">Pourquoi Malabus ?</h2>
+        <p class="lorem_text6">Caractéristique de l’application</p>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <img src="assets/images/Groupe 35715.png" class="imggg" />
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <table class="center">
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35716.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">Facile à utiliser</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35717.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">
+                  Vos données sont toujours en sécurité
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35718.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">
+                  Une application conçue pour tout le monde (Andorid/IOS)
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="assets/images/Groupe 35719.png" class="imgcar" />
+              </td>
+              <td>
+                <div class="web_text1">Assistance 24/7</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--technogm-->
+<div class="page4" *ngIf="page4">
+  <div id="TechnoGm" class="container">
+    <div>
+      <h2 class="choose_text2">Qui l’a créé?</h2>
+      <p class="lorem_text">Les créateurs : C’est TechnoGM</p>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="web_text5">
+          TechnoGM est une société SARL purement Tunisienne, notre entreprise se
+          place dans le secteur de l’informatique, la technique et
+          l’innovation.Nous créons des applications, des sites web, et faisons
+          la numérisation des entreprises afin de les aider à s’améliorer. La
+          technologie se développe tous les jours pour pouvoir suivre
+          l’avancement, il faut être innovant, flexible et ouvert aux
+          possibilités. Nous offrons aux entreprises la possibilité de
+          s’améliorer dans plusieurs domaines tels que la communication interne,
+          leur système d’archives, leurs relations avec leurs clientèles et plus
+          encore.
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <img src="../assets/images/technogm.png" class="imgtechnogm" />
+      </div>
+      <div class="col-sm-4">
+        <div class="btn_main2">
+          <button type="button" class="read_bt"  href="#contactnous"
+          (click)="contactnous()">
+            En savoir plus
+          </button>
+        </div>
+      </div>
+      <p style="color: black; margin-top: -109px" *ngIf="ensavoir">ok</p>
+    </div>
+  </div>
+</div>
+<!--lelouch-->
+
+<div *ngIf="iframe">
+  <iframe style="margin-top: 19px ;" src="https://drive.google.com/file/d/1Zge6GsNxQxLpQfD7SI66u4XxmugH-wSH/preview"  width="100%" height="480" allow="autoplay"></iframe>
+
+</div>
+
+
+
+<!--partenaires-->
+<div class="container" style="padding-top: 2%" *ngIf="page6">
+  <div id="Partenaires" class="container">
+    <div class="col-sm-12">
+      <p class="lorem_text">Ils Nous Font Confiance</p>
+    </div>
+  </div>
+  <ngb-carousel *ngIf="images">
+    <ng-template ngbSlide *ngFor="let image of images">
+      <div class="slide">
+        <img class="imgcursol" [src]="image" />
+      </div>
+    </ng-template>
+  </ngb-carousel>
+</div>
+
+<div class="condetion" id="fac" *ngIf="textShowpls">
+  <div class="container">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="#home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#about">Que faison-nous?</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#service">Caractéristique</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#TechnoGm">TechnoGm</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="#Partenaires">Partenaires</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div class="d-flex">
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-success" ngbDropdownToggle>
+                      Connexion
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(content)"
+                      >
+                        <i
+                          class="bi bi-person-bounding-box"
+                          style="color: green"
+                        ></i>
+
+                        Voyageur
+                      </button>
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(contentAgence)"
+                      >
+                        <i class="bi bi-bank" style="color: green"></i>
+
+                        Agence
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>FAQs</b>
+          </h3>
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b> Qu’est-ce qu’un billet imprimable à domicile ? </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b> Quand imprimer mes billets ? </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b> Comment mon billet est-il contrôlé lors du voyage ? </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b>
+              Y a-t-il une entrée spéciale pour les billets électroniques ?
+            </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b>
+              Puis-je reproduire le billet ou l’acheter sur le marché noir ?
+            </b>
+          </div>
+
+          <div class="shadow p-3 mb-5 bg-white rounded">
+            <b>
+              Puis-je envoyer ou utiliser un billet par un autre nom de personne
+              ?
+            </b>
+          </div>
+
+          <p style="color: #19184a">
+            Qu'est-ce qu'un billet imprimable à domicile ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Le billet imprimable à domicile est un nouveau mode d’obtention de
+            votre billet. Ce système vous permet d'imprimer des billets de
+            spectacle sur <br />
+            une imprimante ordinaire (format A4, Noir et Blanc ou Couleur). Vous
+            imprimez autant de feuilles que des places achetées (1 feuille = 1
+            billet).
+          </p>
+
+          <p style="color: #19184a">Quand imprimer mes billets ?</p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Le billet imprimable à domicile peut être imprimé immédiatement
+            après avoir effectué votre achat sur l’application, ou plus tard,
+            que ce soit <br />
+            depuis chez vous, du bureau ou de tout autre endroit, en vous
+            connectant à votre espace client, dans la rubrique « Mon compte /
+            Mes e-billets ».
+          </p>
+
+          <p style="color: #19184a">
+            Que dois-je faire en cas de perte de mes billets ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Vos billets imprimables à domicile sont disponibles en permanence
+            sur votre adresse mail, ou sur l’application dans votre espace
+            client, dans la <br />
+            rubrique « Mon compte / Mes e-billets
+          </p>
+
+          <p style="color: #19184a">
+            Comment mon billet est-il contrôlé lors du voyage ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Par la lecture du code barre. Il est impossible d'être admis
+            plusieurs fois avec le même billet. Vous êtes responsable de votre
+            billet. À conserver en <br />
+            lieu sûr
+          </p>
+
+          <p style="color: #19184a">
+            Y a-t-il une entrée spéciale pour les billets électroniques ?
+          </p>
+
+          <p style="color: #585e68; font-size: 15px">
+            Non les billets sont contrôlés à l'entrée du bus, si un changement
+            existe il sera clairement cité sur le billet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="confid" id="conf" *ngIf="showconf">
+  <div class="container">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="#home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#about">Que faison-nous?</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#service">Caractéristique</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#TechnoGm">TechnoGm</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="#Partenaires">Partenaires</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div class="d-flex">
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-success" ngbDropdownToggle>
+                      Connexion
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(content)"
+                      >
+                        <i
+                          class="bi bi-person-bounding-box"
+                          style="color: green"
+                        ></i>
+
+                        Voyageur
+                      </button>
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(contentAgence)"
+                      >
+                        <i class="bi bi-bank" style="color: green"></i>
+
+                        Agence
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Confidentialité Des Données</b>
+          </h3>
+          <p style="color: #585e68; text-align: center">
+            Nous, <b>Techno GM</b> souhaitons vous informer ici sur la
+            protection des données chez <b>MalaBus</b>.
+          </p>
+          <p style="color: #585e68; text-align: center">
+            Les réglementations relatives à la protection des données pour la
+            protection de la personne concernée par le traitement des données
+            (nous vous désignons
+          </p>
+          <p style="color: #585e68; text-align: center">
+            désignons ci-après comme la a personne concernée, ainsi que le «
+            client », l’« utilisateur », « vous » ou la « personne concernée »)
+            proviennent en
+          </p>
+
+          <p style="color: #585e68; text-align: center">
+            particulier du Règlement général sur la protection des données.
+          </p>
+          <p style="color: #585e68; text-align: center">
+            Dans la mesure où nous décidons des finalités et des moyens du
+            traitement des données, seul ou conjointement avec d’autres, cela
+            inclut
+          </p>
+          <p style="color: #585e68; text-align: center">
+            principalement l’obligation de vous informer de manière transparente
+            sur le type, la portée, la finalité, la durée et la base juridique
+            du traitement .
+          </p>
+          <p style="color: #585e68; text-align: center">
+            L’objectif de la présente politique, est de vous informer sur la
+            manière dont nous traitons vos données à caractère personnel.
+          </p>
+          <p style="color: #585e68; text-align: center">
+            Notre plitique de confidentialité est de structure modulaire. Elle
+            se compose d’une partie contenant des informations générales sur
+            tous les
+          </p>
+          <p style="color: #585e68; text-align: center">
+            traitements de données à caractère personnel et les situations de
+            traitement qui entrent en vigueur chaque fois que notre site Web est
+            consulté et
+          </p>
+          <p style="color: #585e68; text-align: center">
+            d’une partie spécifique, dont le contenu fait référence uniquement à
+            la situation de traitement spécifiée avec le nom de l’offre ou du
+            produit
+          </p>
+          <p style="color: #585e68; text-align: center">
+            respectif, en particulier lorsque vous visitez nos sites Web.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="condetion" id="mention" *ngIf="showmention">
+  <div class="container">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="#home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#about">Que faison-nous?</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#service">Caractéristique</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#TechnoGm">TechnoGm</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="#Partenaires">Partenaires</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div class="d-flex">
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-success" ngbDropdownToggle>
+                      Connexion
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(content)"
+                      >
+                        <i
+                          class="bi bi-person-bounding-box"
+                          style="color: green"
+                        ></i>
+
+                        Voyageur
+                      </button>
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(contentAgence)"
+                      >
+                        <i class="bi bi-bank" style="color: green"></i>
+
+                        Agence
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Mentions Légales</b>
+          </h3>
+          <p style="color: #585e68">
+            <b>Éditeur </b>
+          </p>
+          <p style="color: #585e68">Techno GM</p>
+          <p style="color: #585e68">
+            <b>Contact</b>
+          </p>
+
+          <p style="color: #585e68">
+            Adresse: IMM5 APP2 Résidence Sidi Hassine , Tunis 2052, Tunisie
+          </p>
+          <p style="color: #585e68">Tél: + (216) 50 88 01 88*</p>
+          <p style="color: #585e68">E-Mail: technogm.tn@gmail.com</p>
+          <p style="color: #585e68; font-size: 15px">
+            *Veuillez noter que le prix des appels depuis les lignes fixes et
+            depuis les mobiles dépend des tarifs des prestataires individuels.
+          </p>
+          <p style="color: #585e68">
+            <br />
+            <b>Responsabilité pour les contenus </b>
+          </p>
+          <p style="color: #585e68">
+            Les contenus de nos pages ont été créés avec le plus grand soin.
+            Nous n’offrons toutefois aucune garantie quant à l’exactitude,
+            l’exhaustivité ou l’actualité des contenus. En tant que fournisseur
+            de service, nous sommes responsables de nos propres contenus sur ces
+            pages selon les lois <br />
+            générales. Toutefois en tant que fournisseur de service, nous ne
+            sommes pas tenus à surveiller les informations tierces transmises ou
+            enregistrées <br />
+            qui indiquent une activité illicite, ni à étudier les circonstances.
+            Ceci n’affecte pas les obligations d’éliminer ou de bloquer
+            l’utilisation <br />
+            selon les lois générales. Toutefois, une responsabilité à cet égard
+            n’est possible qu’à partir de la date de la prise de connaissance de
+            la violation du <br />
+            droit. Si nous apprenons l’existence de telles violations du droit,
+            nous supprimerons immédiatement ces contenus.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="condetionconf"
+  id="conditionG"
+  *ngIf="condiong"
+  style="background-size: contain"
+>
+  <div class="container">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="#home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#about">Que faison-nous?</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#service">Caractéristique</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#TechnoGm">TechnoGm</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="#Partenaires">Partenaires</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div class="d-flex">
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-success" ngbDropdownToggle>
+                      Connexion
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(content)"
+                      >
+                        <i
+                          class="bi bi-person-bounding-box"
+                          style="color: green"
+                        ></i>
+
+                        Voyageur
+                      </button>
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(contentAgence)"
+                      >
+                        <i class="bi bi-bank" style="color: green"></i>
+
+                        Agence
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Conditions Générales De Vente</b>
+          </h3>
+
+          <p style="color: #585e68">
+            <b>Champ d’application :</b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            Les conditions générales de réservation et conditions particulières
+            de réservation s’appliquent pour l’utilisation des portails web et
+            pour la <br />
+            réservation de trajets MalaBus. <br />
+            MalaBus se réserve le droit de modifier à tout moment les présentes
+            conditions générales de réservation en publiant une nouvelle version
+            sur le site. <br />
+            Les conditions générales de réservations sont celles en vigueur à la
+            date de réservation de la commande. <br />
+            Le fait de cocher la case relative aux présentes conditions
+            générales de réservation lors de processus de validation de la
+            commande emporte <br />
+            acceptation sans réserve par le client de l’intégralité des
+            conditions générales de réservation.
+          </p>
+
+          <p style="color: #585e68">
+            <b>Condition de paiement :</b>
+          </p>
+          <p style="color: #585e68">
+            <b>Achat :</b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            La possibilité de réserver n’est plus valable 2 jours avant le
+            départ. <br />
+            Pour réserver/acheter, le client doit insérer ses identifiants et
+            mots de passe dans l’application. <br />
+            Les places et bus disponibles seront donc affichez ce premier doit
+            choisir le bus qui lui convient en prenant compte de l’heure et des
+            nombres de <br />
+            places disponible puis il devra confirmer son choix. <br />
+            Un email lui sera envoyé avec son billet et code a barre. <br />
+          </p>
+          <p style="color: #585e68">
+            <b> Paiement en ligne :</b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            Les titres de transport peuvent être payés de différente manière
+            selon le type de réservation : <br />
+            - Carte bancaires/cartes de crédit <br />
+            - Carte E-dinar/post <br />
+            Achats par carte de bancaires <br />
+            Dans le cas d'achats par carte bancaire ou de crédit, les comptes
+            clients sont débités une fois la réservation terminée. <br />
+            En cas de rejets de débit des paiements par carte bleue, les clients
+            peuvent être interdits, de façon temporaire ou définitive,
+            d'effectuer <br />
+            des paiements par carte de crédit. <br />
+            Carte E-dinar/post <br />
+            Dans le cas d'achats par carte E dinar ou poste, les comptes clients
+            sont débités une fois la réservation terminée. <br />
+            Achats par carte de crédit Dans le cas d'achats par carte de <br />
+            crédit, les comptes clients sont débités une fois la réservation
+            terminée. En effectuant un paiement par carte de crédit, les clients
+            demandent à leur établissement bancaire, lors de la réservation, de
+            transmettre à MalaBus ou à l'un de ses tiers autorisés leur <br />
+            nom et adresse complète en cas de rejet du débit, afin de permettre
+            à MalaBus de faire valoir ses droits envers ces mêmes clients.
+            <br />
+            En cas de rejets de débit des paiements par carte bleue, les clients
+            peuvent être interdits, de façon temporaire ou définitive,
+            d'effectuer des <br />
+            paiements par carte de crédit <br />.
+            <b>Compensation et droit de rétention</b> <br />
+            Les clients ne pourront compenser leurs créances que si le principe
+            de la compensation légale est applicable, c'est-à-dire qu'elle ne
+            peut s’opérer qu'entre deux obligations fongibles, certaines,
+            liquides et exigibles. Sont fongibles les obligations de somme
+            d'argent, même en différentes devises, pourvu qu'elles soient
+            convertibles peut prouver qu’il a subi un ou des préjudices d’un
+            montant inférieur. La charge de la preuve de la non-utilisation du
+            billet incombe au passager. Un ticket est généré pour chaque
+            personne et chaque trajet. Les correspondances avec transferts
+            (interconnexions) sont traitées comme un seul voyage. Par
+            conséquent, le montant des frais de traitement est calculé en
+            fonction du délai écoulé après le départ jusqu’au moment où la
+            demande de remboursement est faite.
+          </p>
+
+          <p style="color: #585e68">
+            <b>Tolérances : </b>
+          </p>
+
+          <p style="color: #585e68; font-size: 9px">
+            Le fait pour l’une des Parties de ne pas se prévaloir d’un
+            manquement de l’autre Partie à l’une quelconque de ses obligations
+            issues du Contrat ne <br />
+            saurait être interprété comme une renonciation à l’exécution de
+            l’obligation en cause en l’absence de prescription.
+          </p>
+
+          <p style="color: #585e68">
+            <b> Réclamations : </b>
+          </p>
+          <p style="color: #585e68; font-size: 9px">
+            Pour toute contestation, le client pourra écrire à TechnoGM ,
+            Service Client Synchro ou par mail sur technogm.tn@gmail.com. <br />
+            Le client devra exposer les motifs de ses griefs et produire, le cas
+            échéant, toutes pièces utiles au traitement de sa demande. <br />
+            Par ailleurs, le Client est informé que le Service Clients TechnoGM
+            ne traitera aucune réclamation liée au manquement de l'un de ses
+            Partenaires
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="condetioncn" id="contactnous" *ngIf="contactns">
+  <div class="container">
+    <div class="d-flex flex-column my-flex-container-column">
+      <div class="p-2 my-flex-item">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a href=""
+              ><img
+                width="72"
+                height="41"
+                src="../../assets/images/logo.png"
+                class="imglogo"
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="#home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#about">Que faison-nous?</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#service">Caractéristique</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#TechnoGm">TechnoGm</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="#Partenaires">Partenaires</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a target="_blank" href="https://www.facebook.com/malabustn"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a target="_blank" href="https://www.instagram.com/malabustn/"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a target="_blank" href=""><i class="fa fa-linkedin"></i></a>
+                </li>
+              </ul>
+
+              <div class="d-flex">
+                <div class="d-flex">
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-success" ngbDropdownToggle>
+                      Connexion
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(content)"
+                      >
+                        <i
+                          class="bi bi-person-bounding-box"
+                          style="color: green"
+                        ></i>
+
+                        Voyageur
+                      </button>
+                      <button
+                        ngbDropdownItem
+                        (click)="openVerticallyCentered(contentAgence)"
+                      >
+                        <i class="bi bi-bank" style="color: green"></i>
+
+                        Agence
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-lg-12 col-md-12 d-md-flex flex-column justify-content-sm-center"
+        >
+          <h3
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+              margin-top: revert;
+            "
+          >
+            <b>Qui Sommes Nous</b>
+          </h3>
+          <img
+            src="../../../assets/images/technogm.png"
+            style="height: 100px; width: 100px; margin-left: 47%"
+            alt=""
+          />
+          <p style="color: #585e68; font-size: 10px; text-align: center">
+            TechnoGM est une société SARL purement Tunisienne, notre entreprise
+            se place dans le secteur de l’informatique, la technique et
+            l’innovation.Nous <br />
+            créons des applications, des sites web, et faisons la numérisation
+            des entreprises afin de les aider à s’améliorer. La technologie se
+            développe tous <br />
+            les jours pour pouvoir suivre l’avancement, il faut être innovant,
+            flexible et ouvert aux possibilités. Nous offrons aux entreprises la
+            possibilité de <br />
+            s’améliorer dans plusieurs domaines tels que la communication
+            interne, leur système d’archives, leurs relations avec leurs
+            clientèles et plus encore. <br />
+            Nous sommes une startup innovante créée en 2019 par des experts en
+            entrepreneuriat et création de projets innovantes. <br />
+            Notre société a obtenu le label startup d’auprès du ministère des
+            technologies et de la communication par le programme STARTUP ACT en
+            2020.
+          </p>
+          <p style="color: #b9b9b9; text-align: center">Que Faisons-Nous?</p>
+
+          <h4
+            style="
+              color: #19184a;
+              font-size: 50px;
+              text-align: center;
+              font-family: SemiBold;
+            "
+          >
+            <b>Nos Services</b>
+          </h4>
+          <p style="color: #b9b9b9; text-align: center">
+            C’est la richesse de nos idées et notre complémentarité qui fera la
+            réussite de nos projets.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--contact-->
+<div class="footer">
+  <div id="contact" class="container">
+    <div>
+      <h2 class="choose_text3 h2">Contacter nous</h2>
+      <p class="lorem_text5 contact_p" _ngcontent-serverapp-c6="">
+        Dites-nous Bonjour!
+      </p>
+      <p
+        *ngIf="showMsgAddagency"
+        role="alert"
+        style="margin-left: 218px; color: #43a86f; text-align: center"
+      >
+        Votre message est envoyé au responsable de l'application.
+      </p>
+
+      <p
+      *ngIf="errorMessagecontact.show"
+      role="alert"
+      style="margin-left: 218px; color: #bd5959; text-align: center"
+    >
+    {{ errorMessagecontact.msg }}
+  </p>
+
+    </div>
+    <form [formGroup]="ContactForm" (ngSubmit)="addContact()">
+      <div class="row" _ngcontent-serverapp-c6="">
+        <div class="col-sm-4" _ngcontent-serverapp-c6="">
+          <input
+            _ngcontent-serverapp-c6=""
+            type="text"
+            name="Name"
+            class="email-bt"
+            placeholder="Nom"
+            formControlName="nomUser"
+          /><input
+            _ngcontent-serverapp-c6=""
+            type="text"
+            name="Email"
+            class="email-bt"
+            placeholder="Email"
+            formControlName="emailUser"
+          />
+        </div>
+        <div class="col-sm-8" _ngcontent-serverapp-c6="">
+          <textarea
+            _ngcontent-serverapp-c6=""
+            rows="5"
+            id="comment"
+            name="text"
+            formControlName="texte"
+            class="massage-bt"
+            placeholder="Ecrire ici ou contactez nous à l'adresse mail suivante :  contact@malabus.net"
+          ></textarea>
+        </div>
+        <div class="col-sm-4" _ngcontent-serverapp-c6="">
+          <div class="btn_main" _ngcontent-serverapp-c6="">
+            <button
+              _ngcontent-serverapp-c6=""
+              type="submit"
+              class="read_bt"
+              style="width: 72%"
+            >
+              <a>ENVOYER</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--footer-->
+<div class="route">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <a style="cursor: pointer"
+          ><img src="../assets/images/logofooter.png" class="logo"
+        /></a>
+      </div>
+      <div class="col-sm-2">
+        <table>
+          <tr>
+            <th class="tr1">Liens rapides :</th>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a href="#acceuil" style="color: white">Accueil</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a href="#about" style="color: white">Que faison-nous?</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a _ngcontent-serverapp-c6="" href="#service" style="color: white"
+                >Caractéristique</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a href="#TechnoGm" style="color: white">TechnoGm</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a href="#Partenaires" style="color: white">Partenaires</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-2">
+        <table class="tab2">
+          <tr>
+            <th class="tr1">Centre d’aide :</th>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a
+               href="#contactnous"
+                style="color: white"
+                >Contacter nous</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a style="color: white" href="#conditionG" (click)="conditionG()"
+                >Conditions Générales de Vente</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a style="color: white" href="#conf" (click)="confidet()"
+                >Confidentialité</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a style="color: white" href="#fac" (click)="showTextpls()"
+                >FAQs</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="tr2">
+              <a style="color: white" href="#mention" (click)="mention()"
+                >Mentions légales</a
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-2">
+        <table>
+          <tr>
+            <th class="tr1">Rejoignez-nous sur :</th>
+          </tr>
+          <tr>
+            <td>
+              <a
+                target="_blank"
+                href="https://www.facebook.com/malabustn"
+                class="fafb"
+                ><i class="fa fa-facebook"></i></a
+              ><a
+                target="_blank"
+                href="https://www.instagram.com/malabustn/"
+                class="fainst"
+                ><i class="fa fa-instagram"></i
+              ></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-3">
+        <table>
+          <tr>
+            <th></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="btn_main1">
+                <button type="button" class="read_btapp">
+                  <table class="store">
+                    <tr>
+                      <td rowspan="2">
+                        <img src="/assets/images/AppStore.png" class="store1" />
+                      </td>
+                      <td>App Store</td>
+                    </tr>
+                  </table>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="btn_main2">
+                <button type="button" class="read_bt2">
+                  <table class="store">
+                    <tr>
+                      <td rowspan="2">
+                        <img
+                          src="../assets/images/PlayStore.png"
+                          class="store1"
+                        />
+                      </td>
+                      <td _ngcontent-serverapp-c6="">Play Store</td>
+                    </tr>
+                  </table>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--copyrihth-->
+<div class="footer1">
+  <p class="copy_text">© 2022 TechnoGM. Tous les droits sont réservés.</p>
+</div>
+
+<ng-template #contentres let-modal>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <p style="text-align: center; color: #19184a">
+          Vous devez créer un compte pour avoir réserver un ticket de bus
+        </p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-info"
+      (click)="modal.close('Save click')"
+      (click)="openVerticallyCentered(content)"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
