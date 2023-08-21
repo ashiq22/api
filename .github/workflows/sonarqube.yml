@@ -39,4 +39,4 @@ jobs:
     - name: Push Docker Images to Docker Hub
       run: |
         docker push ashiq22/new:server-${{github.run_number}}
-        docker push ashiq22/server:server-${{github.run_number}}
+        docker push ashiq22/new:client-${{github.run_number}}
