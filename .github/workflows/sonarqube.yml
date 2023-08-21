@@ -17,26 +17,20 @@ jobs:
         # Disabling shallow clone is recommended for improving relevancy of reporting
         fetch-depth: 0
    
-    - name: Build client Docker Image
-      working-directory: ./frontend
-      
-      run: |
-         docker build . --file Dockerfile -t ashiq22/new:client-${{github.run_number}}
-         
-    - name: Build server Docker Image
-      working-directory: ./backend
-       
-      run: |
-         docker build . --file Dockerfile -t ashiq22/new:server-${{github.run_number}}
-         
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
+    
+    - name: 'Docker Login'
+      uses: azure/docker-login@v1
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        login-server: ${{ secrets.ACR_URL }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+ 
+    - name: Build the frontend image and push it to ACR
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: myprojectcg.azurecr.io/frontend:${{ github.sha }}
+        file: frontend/Dockerfile
 
-      # Push the Docker images to Docker Hub
-    - name: Push Docker Images to Docker Hub
-      run: |
-        docker push ashiq22/new:server-${{github.run_number}}
-        docker push ashiq22/new:client-${{github.run_number}}
+
+   
