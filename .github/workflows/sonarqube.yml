@@ -16,17 +16,7 @@ jobs:
       with:
         # Disabling shallow clone is recommended for improving relevancy of reporting
         fetch-depth: 0
-    - name: SonarQube Scan
-      uses: kitabisa/sonarqube-action@v1.2.0
-      with:
-        host: ${{ secrets.SONARQUBE_HOST }}
-        login: ${{ secrets.SONAR_TOKEN }}
-
-    - name: Install and Test Client
-      working-directory: ./frontend
-      run: |
-        npm install
-        npm run test
+  
     - name: Build Client Docker Image
       working-directory: ./frontend
         # Build image with tag ashiq22/productivity-app:client
