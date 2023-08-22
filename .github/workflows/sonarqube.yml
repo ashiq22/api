@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
+
+      - uses: Azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.SERVICE_PRINCIPAL }}","clientSecret":"${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}","subscriptionId":"${{ secrets.SUBSCRIPTION }}","tenantId":"${{ secrets.TENANT }}"}'
+
     
       - name: Azure login
         id: login
