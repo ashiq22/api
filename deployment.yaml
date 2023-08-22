@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-name
+  name: nginx-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        label-key : label-value  
+       app: frontend
     spec:
       containers:
-        - name: deploment-container-name
+        - name: frontend-container
           image: azuredocs/azure-vote-front:ed1d16d1b2bc892e167177d6869b647bad30ab9f
           imagePullPolicy: Always
           ports:
@@ -20,15 +20,15 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service-label-key: service-label-value 
-  name: service-name-loadbalancer
+    srvce: frontend-srvce
+  name: frontend-loadbalancer
 spec:
   type: LoadBalancer
   ports:
-  - name: service-port-name
+  - name: frontend-port-name
     port: 80
     protocol: TCP
   selector:
-    deployment-label-key: deployment-label-value
+   app: frontend
 
     
