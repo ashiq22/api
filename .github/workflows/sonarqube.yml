@@ -1,8 +1,10 @@
 name: build_deploy_aks
 on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request. 
   push:
-    paths:
-      - "azure-vote/**"
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
