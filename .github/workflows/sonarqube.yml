@@ -24,7 +24,7 @@ jobs:
           image:  college-assignment
           folder: frontend
           branch: main
-          tag: front:${{ github.sha }}
+          tag: ${{ github.sha }}
       - name: Azure login
         id: login
         uses: azure/login@v1.4.3
