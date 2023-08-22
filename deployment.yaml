@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: collegePJ-Front
+  name: collegepj-front
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: collegePJ-Front
+      app: collegepj-front
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,12 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: collegePJ-Front
+        app: collegepj-Front
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: azure-vote-front
+      - name: azure-cl-front
         image: mcr.microsoft.com/azuredocs/azure-vote-front:14325c72c6186cc89fef0ac66cc6d0363148ed43
         ports:
         - containerPort: 4000
@@ -42,4 +42,4 @@ spec:
   ports:
   - port: 80
   selector:
-    app: collegePJ-Front
+    app: collegepj-front
