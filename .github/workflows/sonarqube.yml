@@ -1,54 +1,48 @@
-
+name: build_deploy_aks
 on:
-  # Trigger analysis when pushing in master or pull requests, and when creating
-  # a pull request. 
   push:
-    branches:
-      - main
-name: SonarQube Scan
+    paths:
+      - "azure-vote/**"
 jobs:
-  sonarqube:
-    name: SonarQube Trigger
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checking out
-      uses: actions/checkout@master
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
-   
-    - name: Build client Docker Image
-      working-directory: ./frontend
-      
-      run: |
-         docker build . --file Dockerfile -t ashiq22/new:client-${{github.run_number}}
-         
-    - name: Build server Docker Image
-      working-directory: ./backend
-       
-      run: |
-         docker build . --file Dockerfile -t ashiq22/new:server-${{github.run_number}}
-
-    - name: Azure Login
-      uses: azure/login@14a755a4e2fd6dff25794233def4f2cf3f866955
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-    - uses: Azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: myproject-082023
-        resource-group: myProjectRG
-
-        
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # Push the Docker images to Docker Hub
-    - name: Push Docker Images to Docker Hub
-      run: |
-        docker push ashiq22/new:server-${{github.run_number}}
-        docker push ashiq22/new:client-${{github.run_number}}
+      - name: Checkout source code 
+        uses: actions/checkout@v3
+      - name: ACR build
+        id: build-push-acr
+     
+        uses: azure/acr-build@v1
+        with:
+          service_principal: ${{ secrets.service_principal }}
+          service_principal_password: ${{ secrets.service_principal_password }}
+          tenant: ${{ secrets.tenant }}
+          registry: ${{ secrets.registry }}
+          repository: ${{ secrets.repository }}
+          image:  azure-vote-front
+          folder: azure-vote
+          branch: master
+          tag: ${{ github.sha }}
+      - name: Azure login
+        id: login
+        uses: azure/login@v1.4.3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.resource_group }}' 
+          cluster-name: '${{ secrets.cluster_name }}'
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
+      - name: Deploy to AKS
+        id: deploy-aks
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: 'default'
+          manifests: |
+             azure-vote-all-in-one-redis.yaml
+          images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/azure-vote-front:${{ github.sha }}'
+          pull-images: false
