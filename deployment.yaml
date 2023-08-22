@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: collegepj-Front
+        app: collegepj-front
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
@@ -36,7 +36,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: collegepj-Front
+  name: collegepj-front
 spec:
   type: LoadBalancer
   ports:
