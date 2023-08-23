@@ -4,10 +4,10 @@ import { Observable, throwError } from 'rxjs';
 import { Voyageur } from '../model/voyageur';
 import { Agence } from '../model/agence';
 import { catchError, map } from 'rxjs/operators';
-const URLC = 'https://malabusfront1.onrender.com/user/';
-const URL = 'https://malabusfront1.onrender.com/admin/';
-const URLF = 'https://malabusfront1.onrender.com/forum/';
-const AUTH_API = 'https://malabusfront1.onrender.com/user/';
+const URLC = 'http://10.0.80.235:3000/user/';
+const URL = 'http://10.0.80.235:3000/admin/';
+const URLF = 'http://10.0.80.235:3000/forum/';
+const AUTH_API = 'http://10.0.80.235:3000/user/';
 const httpOptions = {
   headers: new HttpHeaders({ 'x-access-token': '${TOKEN_KEY}' })
 }
@@ -22,8 +22,8 @@ export class UserService {
 
 
 
-  baseUri: string = 'https://malabusfront1.onrender.com/user';
-  baseUriAgence: string = 'https://malabusfront1.onrender.com/agency';
+  baseUri: string = 'http://10.0.80.235:3000/user';
+  baseUriAgence: string = 'http://10.0.80.235:3000/agency';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -52,7 +52,7 @@ export class UserService {
 
 
   confirmUser(confirmationCode: any) {
-    return this.httpClient.get<any>('https://malabusfront1.onrender.com/user/confirm/' + confirmationCode);
+    return this.httpClient.get<any>('http://10.0.80.235:3000/user/confirm/' + confirmationCode);
   }
 
 
@@ -84,7 +84,7 @@ export class UserService {
     let Options = {
       headers: new HttpHeaders({ 'x-access-token': this.user.token })
     }
-    return this.httpClient.put('https://malabusfront1.onrender.com/user/updateProfil/' + id, newuser, Options)
+    return this.httpClient.put('http://10.0.80.235:3000/user/updateProfil/' + id, newuser, Options)
   }
   createAgence(data: Agence) {
     let API_URL = `${this.baseUriAgence}/register`;
@@ -106,11 +106,11 @@ export class UserService {
 
 
   getForum = () => {
-    return this.httpClient.get('https://malabusfront1.onrender.com/forum/listeForums');
+    return this.httpClient.get('http://10.0.80.235:3000/forum/listeForums');
   }
 
   getArret = () => {
-    return this.httpClient.get('https://malabusfront1.onrender.com/agency/listeAll-arret');
+    return this.httpClient.get('http://10.0.80.235:3000/agency/listeAll-arret');
   }
   getTicket(data: any): Observable<any> {
     let API_URL = `${this.baseUri}/recherche_voyage`;
@@ -150,7 +150,7 @@ export class UserService {
   }
 
   addForum(data: any): Observable<any> {
-    let API_URL = `https://malabusfront1.onrender.com/forum/ajouterFourum/`;
+    let API_URL = `http://10.0.80.235:3000/forum/ajouterFourum/`;
     return this.httpClient.post(API_URL, data)
   }
 
