@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: azure-cg-back
-        image: docker pull myprojectcg.azurecr.io/azuredocs/college-assignment:backend
+        image: myprojectcg.azurecr.io/azuredocs/college-assignment:backend
         env:
         - name: ALLOW_EMPTY_PASSWORD
           value: "yes"
