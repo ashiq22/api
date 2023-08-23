@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: azure-cg-back
+  name: azure-lcg-back
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: azure-cg-back
+      app: azure-lcg-back
   template:
     metadata:
       labels:
-        app: azure-cg-back
+        app: azure-lcg-back
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: azure-cg-back
+      - name: azure-lcg-back
         image: myprojectcg.azurecr.io/azuredocs/college-assignment:backend
         env:
         - name: ALLOW_EMPTY_PASSWORD
@@ -27,22 +27,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: azure-cg-back
+  name: azure-lcg-back
 spec:
   ports:
   - port: 3000
   selector:
-    app: azure-cg-back
+    app: azure-lcg-back
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: azure-cg-front
+  name: azure-lcg-front
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: azure-cg-front
+      app: azure-lcg-front
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -51,12 +51,12 @@ spec:
   template:
     metadata:
       labels:
-        app: azure-cg-front
+        app: azure-lcg-front
     spec:
       nodeSelector:
         "kubernetes.io/os": linux
       containers:
-      - name: azure-cg-front
+      - name: azure-lcg-front
         image: myprojectcg.azurecr.io/azuredocs/college-assignment:frontend
         ports:
         - containerPort: 80
@@ -67,15 +67,15 @@ spec:
             cpu: 500m
         env:
         - name: REDIS
-          value: "azure-cg-back"
+          value: "azure-lcg-back"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: azure-cg-front
+  name: azure-lcg-front
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: azure-cg-front
+    app: azure-lcg-front
