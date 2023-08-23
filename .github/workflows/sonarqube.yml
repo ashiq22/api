@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
-      - name: ACR build
+      - name: ACR build-frontend
         id: build-push-acr
      
         uses: azure/acr-build@v1
@@ -24,8 +24,12 @@ jobs:
           image:  college-assignment
           folder: frontend
           branch: main
-          tag: frontend
-	uses: azure/acr-build@v1
+          tag: frontend-latest
+	
+      - name: ACR build backend
+        id: build-push-acr-bc
+     
+        uses: azure/acr2-build@v2
         with:
           service_principal: ${{ secrets.service_principal }}
           service_principal_password: ${{ secrets.service_principal_password }}
@@ -35,7 +39,7 @@ jobs:
           image:  college-assignment
           folder: backend
           branch: main
-          tag: backend
+          tag: backend-latest
       - name: Azure login
         id: login
         uses: azure/login@v1.4.3
@@ -57,5 +61,5 @@ jobs:
           namespace: 'default'
           manifests: |
              deployment.yaml
-          images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/frontend:${{ github.sha }}'
+          images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/frontend:latest'
           pull-images: false
