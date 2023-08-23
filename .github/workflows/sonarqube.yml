@@ -11,6 +11,12 @@ jobs:
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
+      - name: SonarQube Scan
+        uses: kitabisa/sonarqube-action@v1.2.0
+        with:
+          host: ${{ secrets.SONARQUBE_HOST }}
+          login: ${{ secrets.SONAR_TOKEN }}
+          
       - name: ACR build and Push -frontend
         id: build-push-acr
      
