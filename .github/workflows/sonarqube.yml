@@ -33,5 +33,5 @@ jobs:
           namespace: 'default'
           manifests: |
              deployment.yaml
-          images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/frontend:${{ github.sha }}'
+          images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/college-assignment:ed1d16d1b2bc892e167177d6869b647bad30ab9f'
           pull-images: false
