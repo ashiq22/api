@@ -25,7 +25,6 @@ jobs:
           folder: frontend
           branch: main
           tag: frontend
-	
       - name: ACR build backend
         id: build-push-acr-bc
      
