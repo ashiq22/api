@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: azuredocs/azure-vote-front:ed1d16d1b2bc892e167177d6869b647bad30ab9f
+          image: azuredocs/college-assignment:ed1d16d1b2bc892e167177d6869b647bad30ab9f
           imagePullPolicy: Always
           ports:
           - containerPort: 80
