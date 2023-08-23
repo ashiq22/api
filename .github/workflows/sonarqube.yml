@@ -28,7 +28,7 @@ jobs:
       - name: ACR build backend
         id: build-push-acr-bc
      
-        uses: azure/acr2-build@v2
+        uses: azure/acr-build@v1
         with:
           service_principal: ${{ secrets.service_principal }}
           service_principal_password: ${{ secrets.service_principal_password }}
