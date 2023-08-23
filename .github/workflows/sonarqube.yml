@@ -24,7 +24,7 @@ jobs:
           image:  college-assignment
           folder: frontend
           branch: main
-          tag: frontend-latest
+          tag: frontend
 	
       - name: ACR build backend
         id: build-push-acr-bc
@@ -39,7 +39,7 @@ jobs:
           image:  college-assignment
           folder: backend
           branch: main
-          tag: backend-latest
+          tag: backend
       - name: Azure login
         id: login
         uses: azure/login@v1.4.3
@@ -61,5 +61,4 @@ jobs:
           namespace: 'default'
           manifests: |
              deployment.yaml
-          images: '${{ secrets.registry }}.azurecr.io/${{ secrets.repository }}/frontend:latest'
-          pull-images: false
+         
