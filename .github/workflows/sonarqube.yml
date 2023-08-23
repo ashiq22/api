@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
-      - name: ACR build-frontend
+      - name: ACR build and Push -frontend
         id: build-push-acr
      
         uses: azure/acr-build@v1
@@ -25,7 +25,7 @@ jobs:
           folder: frontend
           branch: main
           tag: frontend
-      - name: ACR build backend
+      - name: ACR build and Push backend
         id: build-push-acr-bc
      
         uses: azure/acr-build@v1
