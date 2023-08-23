@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-const AUTH_API = 'https://malabusfront1.onrender.com/user/';
-const AUTH_API_Agence = 'https://malabusfront1.onrender.com/agency/';
+const AUTH_API = 'http://10.0.80.235:3000/user/';
+const AUTH_API_Agence = 'http://10.0.80.235:3000/agency/';
 
 let httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
