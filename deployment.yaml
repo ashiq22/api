@@ -21,7 +21,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: azure-cg-front
-        image: myprojectcg.azurecr.io/college-assignment:ed1d16d1b2bc892e167177d6869b647bad30ab9f
+        image: myprojectcg.azurecr.io/azuredocs/college-assignment:ed1d16d1b2bc892e167177d6869b647bad30ab9f
         ports:
         - containerPort: 80
         resources:
