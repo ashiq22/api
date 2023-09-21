@@ -17,53 +17,5 @@ jobs:
           host: ${{ secrets.SONARQUBE_HOST }}
           login: ${{ secrets.SONAR_TOKEN }}
           
-      - name: ACR build and Push -frontend
-        id: build-push-acr
-     
-        uses: azure/acr-build@v1
-        with:
-          service_principal: ${{ secrets.service_principal }}
-          service_principal_password: ${{ secrets.service_principal_password }}
-          tenant: ${{ secrets.tenant }}
-          registry: ${{ secrets.registry }}
-          repository: ${{ secrets.repository }}
-          image:  college-assignment
-          folder: frontend
-          branch: main
-          tag: frontend
-      - name: ACR build and Push backend
-        id: build-push-acr-bc
-     
-        uses: azure/acr-build@v1
-        with:
-          service_principal: ${{ secrets.service_principal }}
-          service_principal_password: ${{ secrets.service_principal_password }}
-          tenant: ${{ secrets.tenant }}
-          registry: ${{ secrets.registry }}
-          repository: ${{ secrets.repository }}
-          image:  college-assignment
-          folder: backend
-          branch: main
-          tag: backend
-      - name: Azure login
-        id: login
-        uses: azure/login@v1.4.3
-        with:
-          creds: '{"clientId":"${{ secrets.SERVICE_PRINCIPAL }}","clientSecret":"${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}","subscriptionId":"${{ secrets.SUBSCRIPTION }}","tenantId":"${{ secrets.TENANT }}"}'
-      - name: Set AKS context
-        id: set-context
-        uses: azure/aks-set-context@v3
-        with:
-          resource-group: '${{ secrets.resource_group }}' 
-          cluster-name: '${{ secrets.cluster_name }}'
-      - name: Setup kubectl
-        id: install-kubectl
-        uses: azure/setup-kubectl@v3
-      - name: Deploy to AKS
-        id: deploy-aks
-        uses: Azure/k8s-deploy@v4
-        with:
-          namespace: 'default'
-          manifests: |
-             deployment.yaml
+   
          
